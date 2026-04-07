@@ -23,11 +23,11 @@
   --bo:rgba(212,175,55,.25);--bp:rgba(123,94,167,.3);--bs:rgba(192,192,208,.2);
   --go:rgba(212,175,55,.12);--gp:rgba(123,94,167,.15);--r:14px;
   /* Escala tipográfica modular — ratio 1.25 */
-  --text-xs:0.75rem;   /* 12px — metadatos, badges */
-  --text-sm:0.875rem;  /* 14px — etiquetas, detalles */
+  --text-xs:1rem;   /* 12px — metadatos, badges */
+  --text-sm:1rem;  /* 14px — etiquetas, detalles */
   --text-base:1rem;    /* 16px — cuerpo de texto */
-  --text-md:1.125rem;  /* 18px — texto importante */
-  --text-lg:1.25rem;   /* 20px — subtítulos */
+  --text-md:1.25rem;  /* 18px — texto importante */
+  --text-lg:1.5rem;   /* 20px — subtítulos */
   --text-xl:1.5rem;    /* 24px — títulos de sección */
   /* Espaciado generoso */
   --space-xs:6px;--space-sm:12px;--space-md:20px;--space-lg:32px;--space-xl:48px;
@@ -37,7 +37,7 @@ html{scroll-behavior:smooth}
 body{
   background:var(--negro);
   color:var(--t1);
-  font-family:'Raleway',sans-serif;
+  font-family:'Arial',sans-serif;
   font-weight:400;
   font-size:var(--text-base);
   line-height:1.75;          /* Interlineado generoso para lectura cómoda */
@@ -59,7 +59,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,10,26,.92
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
   text-decoration:none;letter-spacing:.12em;display:flex;align-items:center;gap:8px}
 .nav-links{display:flex;gap:2px;align-items:center;flex-wrap:wrap}
-.nb{background:none;border:none;cursor:pointer;font-family:'Cinzel',serif;
+.nb{background:none;border:none;cursor:pointer;font-family:'Arial',serif;
   font-size:var(--text-xs);letter-spacing:.1em;color:var(--t2);padding:8px 11px;
   border-radius:28px;transition:all .3s;text-transform:uppercase;opacity:.9}
 .nb:hover,.nb.active{color:var(--orol);background:var(--go);opacity:1;border:1px solid var(--bo)}
@@ -485,14 +485,14 @@ p,.trct,.expand-desc{max-width:70ch;line-height:1.85}
     <span style="font-size:1.25rem;background:linear-gradient(135deg,var(--platal),var(--plata));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">☽</span> Luna Mística
   </a>
   <div class="nav-links" id="navL">
-    <button class="nb active" onclick="sp('carta')">🌌 Carta Astral</button>
-    <button class="nb" onclick="sp('horo')">☀ Horóscopo</button>
-    <button class="nb" onclick="sp('tarot')">🔮 Tarot</button>
-    <button class="nb" onclick="sp('astros')">🌍 Astros Ahora</button>
-    <button class="nb" onclick="sp('minino')">🐱 Luna</button>
-    <button class="nb" onclick="sp('gatitos')">🐾 Gatitos</button>
+    <button class="nb active" onclick="sp('carta')"><img src="CARTA ASTRAL.png" width="18" height="18" style="vertical-align:middle;margin-right:5px"> Carta Astral</button>
+    <button class="nb" onclick="sp('horo')"><img src="HOROSCOPO.png" width="18" height="18" style="vertical-align:middle;margin-right:5px"> Horóscopo</button>
+    <button class="nb" onclick="sp('tarot')"><img src="TAROT.png" width="18" height="18" style="vertical-align:middle;margin-right:5px"> Tarot</button>
+    <button class="nb" onclick="sp('astros')"><img src="ASTROS AHORA.png" width="18" height="18" style="vertical-align:middle;margin-right:5px"> Astros Ahora</button>
+    <button class="nb" onclick="sp('minino')"><img src="LUNA.png" width="18" height="18" style="vertical-align:middle;margin-right:5px"> Luna</button>
+    <button class="nb" onclick="sp('gatitos')"><img src="GATITOS.png" width="18" height="18" style="vertical-align:middle;margin-right:5px"> Gatitos</button>
     <button class="nb nb-prem" onclick="sp('premium')">★ Premium S/5</button>
-    <button class="nb nb-log" onclick="openMod()">☽ Ingresar</button>
+    <button class="nb nb-log" onclick="openMod()"><img src="LUNA PLATEADA.png" width="18" height="18" style="vertical-align:middle;margin-right:5px"> Ingresar</button>
   </div>
   <button class="ham" onclick="toggleM()"><span></span><span></span><span></span></button>
 </nav>
