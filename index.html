@@ -48,7 +48,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;
   background:radial-gradient(ellipse 80% 60% at 20% 0%,rgba(45,27,94,.5),transparent 60%),
   radial-gradient(ellipse 60% 50% at 80% 100%,rgba(123,94,167,.2),transparent 60%),var(--negro);
   pointer-events:none}
-canvas#stars{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.7}
+canvas#stars{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.7;transition:transform .1s ease-out}
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,10,26,.92);
@@ -64,8 +64,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,10,26,.92
   border-radius:28px;transition:all .3s;text-transform:uppercase;opacity:.9}
 .nb:hover,.nb.active{color:var(--orol);background:var(--go);opacity:1;border:1px solid var(--bo)}
 .nb-prem{background:linear-gradient(135deg,var(--oro),var(--orol))!important;
-  color:var(--negro)!important;opacity:1!important;font-weight:600!important;
-  box-shadow:0 2px 14px rgba(212,175,55,.3);margin-left:4px}
+  color:var(--negro)!important;opacity:1!important;font-weight:700!important;
+  box-shadow:0 2px 14px rgba(212,175,55,.3);margin-left:4px;
+  animation:premShine 4s ease-in-out infinite;
+  border-radius:20px!important;padding:8px 16px!important}
 .nb-log{background:none;border:1px solid var(--bs);color:var(--plata)!important;margin-left:3px}
 .ham{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:4px}
 .ham span{display:block;width:21px;height:1px;background:var(--plata)}
@@ -88,10 +90,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,10,26,.92
   text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;justify-content:center;gap:12px}
 .eyebrow::before{content:'';display:block;width:34px;height:1px;background:linear-gradient(90deg,transparent,var(--oro))}
 .eyebrow::after{content:'';display:block;width:34px;height:1px;background:linear-gradient(90deg,var(--oro),transparent)}
-.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,5.5vw,3.4rem);
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,6vw,3.8rem);
   font-weight:300;letter-spacing:.06em;line-height:1.15;margin-bottom:13px;
   background:linear-gradient(135deg,var(--platal) 0%,var(--blanco) 40%,var(--lav) 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:glowText 3s ease-in-out infinite}
 .hero h1 em{font-style:italic;
   background:linear-gradient(135deg,var(--oro),var(--orol),var(--oro));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
@@ -429,6 +432,12 @@ footer a{color:var(--oro);text-decoration:none}
 
 /* UTILS */
 @keyframes fu{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes btnPulse{0%,100%{box-shadow:0 0 28px rgba(212,175,55,.45),0 4px 18px rgba(212,175,55,.35);}
+  50%{box-shadow:0 0 48px rgba(212,175,55,.75),0 4px 28px rgba(212,175,55,.55);transform:translateY(-2px);}}
+@keyframes glowText{0%,100%{text-shadow:0 0 20px rgba(212,175,55,.3);}
+  50%{text-shadow:0 0 40px rgba(212,175,55,.7),0 0 80px rgba(212,175,55,.3);}}
+@keyframes premShine{0%,90%,100%{box-shadow:0 2px 14px rgba(212,175,55,.3);}
+  95%{box-shadow:0 2px 28px rgba(212,175,55,.8),0 0 40px rgba(212,175,55,.4);}}
 .page.active .hero{animation:fu .7s ease both}
 .page.active .card{animation:fu .6s ease both}
 .page.active .card:nth-child(2){animation-delay:.07s}
@@ -437,6 +446,23 @@ footer a{color:var(--oro);text-decoration:none}
 .bprem{display:inline-block;font-family:'Cinzel',serif;font-size:var(--text-xs);letter-spacing:.09em;
   text-transform:uppercase;padding:2px 8px;border-radius:10px;
   background:linear-gradient(135deg,var(--oro),var(--orol));color:var(--negro);font-weight:600;margin-left:5px}
+/* FORMULARIO GUIADO */
+.campo-form{position:relative}
+.campo-form input,.campo-form select{
+  width:100%;transition:border-color .3s,box-shadow .3s;
+}
+.campo-form input:focus,.campo-form select:focus{
+  outline:none;
+  box-shadow:0 2px 0 var(--oro);
+}
+/* Animación de paso activo */
+@keyframes slideIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+#paso1,#paso2{animation:slideIn .4s ease}
+/* Barra de progreso */
+.progress-bar{height:3px;background:rgba(212,175,55,.15);border-radius:2px;margin-bottom:0}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--oro),var(--orol));
+  border-radius:2px;transition:width .5s ease}
+
 /* LEGIBILIDAD — líneas no muy largas */
 p,.trct,.expand-desc{max-width:70ch;line-height:1.85}
 .card p{font-size:var(--text-base);color:var(--t2)}
@@ -488,8 +514,22 @@ p,.trct,.expand-desc{max-width:70ch;line-height:1.85}
     <button class="nb active" onclick="sp('carta')"><img src="CARTA ASTRAL.png" width="18" height="18" style="vertical-align:middle;margin-right:5px"> Carta Astral</button>
     <button class="nb" onclick="sp('horo')"><img src="HOROSCOPO.png" width="18" height="18" style="vertical-align:middle;margin-right:5px"> Horóscopo</button>
     <button class="nb" onclick="sp('tarot')"><img src="TAROT.png" width="18" height="18" style="vertical-align:middle;margin-right:5px"> Tarot</button>
-    <button class="nb" onclick="sp('astros')"><img src="ASTROS AHORA.png" width="18" height="18" style="vertical-align:middle;margin-right:5px"> Astros Ahora</button>
-    <button class="nb" onclick="sp('minino')"><img src="LUNA.png" width="18" height="18" style="vertical-align:middle;margin-right:5px"> Luna</button>
+    <div style="position:relative;display:inline-block" id="dropContainer">
+      <button class="nb" onclick="toggleDrop()" style="display:flex;align-items:center;gap:5px">
+        🌟 Más ▾
+      </button>
+      <div id="dropMenu" style="display:none;position:absolute;top:100%;left:0;
+        background:rgba(13,10,26,.97);border:1px solid rgba(212,175,55,.2);
+        border-radius:10px;padding:6px;z-index:200;min-width:160px;
+        box-shadow:0 8px 24px rgba(0,0,0,.5)">
+        <button class="nb" onclick="sp('astros');toggleDrop()" style="width:100%;text-align:left;border-radius:7px">
+          <img src="ASTROS AHORA.png" width="16" height="16" style="vertical-align:middle;margin-right:6px"> Astros Ahora
+        </button>
+        <button class="nb" onclick="sp('minino');toggleDrop()" style="width:100%;text-align:left;border-radius:7px">
+          <img src="LUNA.png" width="16" height="16" style="vertical-align:middle;margin-right:6px"> Luna
+        </button>
+      </div>
+    </div>
     <button class="nb" onclick="sp('gatitos')"><img src="GATITOS.png" width="18" height="18" style="vertical-align:middle;margin-right:5px"> Gatitos</button>
     <button class="nb nb-prem" onclick="sp('premium')">★ Premium S/5</button>
     <button class="nb nb-log" onclick="openMod()"><img src="LUNA PLATEADA.png" width="18" height="18" style="vertical-align:middle;margin-right:5px"> Ingresar</button>
@@ -502,65 +542,175 @@ p,.trct,.expand-desc{max-width:70ch;line-height:1.85}
   <div class="hero">
     <div class="hmoon">☽</div>
     <div class="eyebrow">Tu mapa cósmico personal</div>
-    <h1>Tu <em>Carta Astral</em> Revelada</h1>
-    <p class="hsub">Descubre tu propósito, dones y destino en segundos — completamente gratis</p>
+    <h1>Conoce tu <em>Destino</em> en Segundos</h1>
+    <p class="hsub" style="color:#F5F0FF;font-size:clamp(1.1rem,2.5vw,1.3rem);font-weight:400">Tu mapa cósmico personalizado y gratuito — generado con precisión astronómica real</p>
+    <a href="#" onclick="sp('carta');setTimeout(()=>document.getElementById('cn').focus(),300);return false"
+      class="btn bg" style="font-size:.85rem;padding:16px 38px;letter-spacing:.18em;
+      margin-top:8px;box-shadow:0 0 28px rgba(212,175,55,.45);
+      animation:btnPulse 2.5s ease-in-out infinite">
+      ✦ CALCULAR MI CARTA AHORA
+    </a>
   </div>
-  <div class="ad"><div style="margin-bottom:3px;text-transform:uppercase;letter-spacing:.09em">Publicidad</div><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
-  <div class="card">
-    <div class="ct">⊕ Datos de Nacimiento</div>
-    <div class="fg">
-      <div><label>Tu nombre</label><input type="text" id="cn" placeholder="¿Cómo te llamas?"/></div>
-      <div><label>Fecha de nacimiento</label><input type="date" id="cf"/></div>
-      <div>
-        <label>Hora de nacimiento</label>
-        <div style="display:flex;gap:8px">
-          <select id="ch-hora" style="flex:1" onchange="updateHora()">
-            <option value="">HH</option>
-            <option>00</option><option>01</option><option>02</option><option>03</option>
-            <option>04</option><option>05</option><option>06</option><option>07</option>
-            <option>08</option><option>09</option><option>10</option><option>11</option>
-            <option>12</option><option>13</option><option>14</option><option>15</option>
-            <option>16</option><option>17</option><option>18</option><option>19</option>
-            <option>20</option><option>21</option><option>22</option><option>23</option>
-          </select>
-          <select id="ch-min" style="flex:1" onchange="updateHora()">
-            <option value="">MM</option>
-            <option>00</option><option>01</option><option>02</option><option>03</option>
-            <option>04</option><option>05</option><option>06</option><option>07</option>
-            <option>08</option><option>09</option><option>10</option><option>11</option>
-            <option>12</option><option>13</option><option>14</option><option>15</option>
-            <option>16</option><option>17</option><option>18</option><option>19</option>
-            <option>20</option><option>21</option><option>22</option><option>23</option>
-            <option>24</option><option>25</option><option>26</option><option>27</option>
-            <option>28</option><option>29</option><option>30</option><option>31</option>
-            <option>32</option><option>33</option><option>34</option><option>35</option>
-            <option>36</option><option>37</option><option>38</option><option>39</option>
-            <option>40</option><option>41</option><option>42</option><option>43</option>
-            <option>44</option><option>45</option><option>46</option><option>47</option>
-            <option>48</option><option>49</option><option>50</option><option>51</option>
-            <option>52</option><option>53</option><option>54</option><option>55</option>
-            <option>56</option><option>57</option><option>58</option><option>59</option>
-          </select>
-          <input type="hidden" id="ch"/>
-        </div>
+  <div class="card" style="padding:0;overflow:hidden">
+    <!-- BARRA DE PROGRESO -->
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:50%"></div></div>
+    <!-- PASOS indicadores -->
+    <div style="display:flex;border-bottom:1px solid rgba(212,175,55,.15)">
+      <div id="paso-ind-1" style="flex:1;padding:14px;text-align:center;background:rgba(212,175,55,.08);border-right:1px solid rgba(212,175,55,.15)">
+        <div style="font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.12em;color:var(--oro)">PASO 1 DE 2</div>
+        <div style="font-size:.75rem;color:var(--t2);margin-top:2px">Tu identidad</div>
       </div>
-      <div style="position:relative">
-        <label>Ciudad de nacimiento</label>
-        <input type="text" id="cc" placeholder="Escribe tu ciudad..." autocomplete="off" oninput="buscarCiudad(this.value)" onblur="setTimeout(()=>document.getElementById('ciudad-list').style.display='none',300)"/>
-        <div id="ciudad-list" style="display:none;position:absolute;top:100%;left:0;right:0;z-index:50;background:linear-gradient(135deg,rgba(26,16,53,.98),rgba(45,27,94,.95));border:1px solid var(--bo);border-radius:9px;max-height:220px;overflow-y:auto;margin-top:3px;box-shadow:0 8px 24px rgba(0,0,0,.5)"></div>
-        <div id="ciudad-coords" style="display:none;font-size:.65rem;color:var(--oro);margin-top:5px;font-family:'Cinzel',serif;letter-spacing:.07em"></div>
-        <div id="ciudad-loading" style="display:none;font-size:.65rem;color:var(--plata);margin-top:5px">🔍 Buscando...</div>
+      <div id="paso-ind-2" style="flex:1;padding:14px;text-align:center;opacity:.4">
+        <div style="font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.12em;color:var(--plata)">PASO 2 DE 2</div>
+        <div style="font-size:.75rem;color:var(--t3);margin-top:2px">Tu llegada al mundo</div>
       </div>
     </div>
-    <div class="bc">
-      <button class="btn bg" onclick="genCarta()" style="font-size:.8rem;padding:14px 32px;letter-spacing:.15em">✦ Obtén tu Guía Astral Gratuita</button>
-      <button class="btn bs2" onclick="sinH()">Sin hora exacta</button>
+
+    <!-- PASO 1: Nombre y Fecha -->
+    <div id="paso1" style="padding:24px">
+      <div style="display:grid;gap:20px">
+
+        <!-- NOMBRE -->
+        <div class="campo-form">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <span style="font-size:1.1rem">✨</span>
+            <label style="margin:0">¿Cómo te llamas?</label>
+          </div>
+          <input type="text" id="cn" placeholder="Tu nombre..."
+            style="border-bottom:2px solid rgba(212,175,55,.3);border-top:none;border-left:none;border-right:none;
+            border-radius:0;background:transparent;padding:10px 4px;font-size:1rem"
+            onfocus="this.style.borderBottomColor='var(--oro)'"
+            onblur="this.style.borderBottomColor='rgba(212,175,55,.3)'"/>
+        </div>
+
+        <!-- FECHA -->
+        <div class="campo-form">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <span style="font-size:1.1rem">☀️</span>
+            <label style="margin:0">¿Cuándo naciste?</label>
+          </div>
+          <input type="date" id="cf"
+            style="border-bottom:2px solid rgba(212,175,55,.3);border-top:none;border-left:none;border-right:none;
+            border-radius:0;background:transparent;padding:10px 4px;font-size:1rem;color:var(--t1)"
+            onfocus="this.style.borderBottomColor='var(--oro)'"
+            onblur="this.style.borderBottomColor='rgba(212,175,55,.3)'"/>
+        </div>
+
+      </div>
+      <div style="margin-top:24px;text-align:center">
+        <button class="btn bg" onclick="irPaso2()"
+          style="font-size:.82rem;padding:14px 36px;letter-spacing:.15em;width:100%;max-width:360px">
+          Siguiente ✦
+        </button>
+      </div>
+    </div>
+
+    <!-- PASO 2: Ciudad y Hora -->
+    <div id="paso2" style="display:none;padding:24px">
+      <div style="display:grid;gap:20px">
+
+        <!-- CIUDAD -->
+        <div class="campo-form" style="position:relative">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <span style="font-size:1.1rem">🗺️</span>
+            <label style="margin:0">¿Dónde naciste?</label>
+          </div>
+          <input type="text" id="cc" placeholder="Escribe tu ciudad..." autocomplete="off"
+            oninput="buscarCiudad(this.value)"
+            onblur="setTimeout(()=>document.getElementById('ciudad-list').style.display='none',300)"
+            style="border-bottom:2px solid rgba(212,175,55,.3);border-top:none;border-left:none;border-right:none;
+            border-radius:0;background:transparent;padding:10px 4px;font-size:1rem"
+            onfocus="this.style.borderBottomColor='var(--oro)'" />
+          <div id="ciudad-list" style="display:none;position:absolute;top:100%;left:0;right:0;z-index:50;
+            background:linear-gradient(135deg,rgba(26,16,53,.98),rgba(45,27,94,.95));
+            border:1px solid var(--bo);border-radius:9px;max-height:220px;overflow-y:auto;
+            margin-top:3px;box-shadow:0 8px 24px rgba(0,0,0,.5)"></div>
+          <div id="ciudad-coords" style="display:none;font-size:.65rem;color:var(--oro);margin-top:5px;font-family:'Cinzel',serif;letter-spacing:.07em"></div>
+          <div id="ciudad-loading" style="display:none;font-size:.65rem;color:var(--plata);margin-top:5px">🔍 Buscando...</div>
+        </div>
+
+        <!-- HORA -->
+        <div class="campo-form">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font-size:1.1rem">🌙</span>
+              <label style="margin:0">¿A qué hora naciste?</label>
+            </div>
+            <button onclick="sinH()" id="btnSinHora"
+              style="background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.25);
+              border-radius:14px;padding:4px 12px;font-size:.65rem;color:var(--oro);
+              cursor:pointer;font-family:'Cinzel',serif;letter-spacing:.07em;transition:.2s"
+              onmouseover="this.style.background='rgba(212,175,55,.18)'"
+              onmouseout="this.style.background='rgba(212,175,55,.08)'">
+              ¿No sabes? →
+            </button>
+          </div>
+          <div style="display:flex;gap:12px;align-items:center">
+            <select id="ch-hora" style="flex:1;border-bottom:2px solid rgba(212,175,55,.3);
+              border-top:none;border-left:none;border-right:none;border-radius:0;
+              background:transparent;padding:10px 4px;font-size:1rem;color:var(--t1)"
+              onchange="updateHora()"
+              onfocus="this.style.borderBottomColor='var(--oro)'"
+              onblur="this.style.borderBottomColor='rgba(212,175,55,.3)'">
+              <option value="">Hora</option>
+              <option>00</option><option>01</option><option>02</option><option>03</option>
+              <option>04</option><option>05</option><option>06</option><option>07</option>
+              <option>08</option><option>09</option><option>10</option><option>11</option>
+              <option>12</option><option>13</option><option>14</option><option>15</option>
+              <option>16</option><option>17</option><option>18</option><option>19</option>
+              <option>20</option><option>21</option><option>22</option><option>23</option>
+            </select>
+            <span style="color:var(--oro);font-size:1.2rem">:</span>
+            <select id="ch-min" style="flex:1;border-bottom:2px solid rgba(212,175,55,.3);
+              border-top:none;border-left:none;border-right:none;border-radius:0;
+              background:transparent;padding:10px 4px;font-size:1rem;color:var(--t1)"
+              onchange="updateHora()"
+              onfocus="this.style.borderBottomColor='var(--oro)'"
+              onblur="this.style.borderBottomColor='rgba(212,175,55,.3)'">
+              <option value="">Min</option>
+              <option>00</option><option>05</option><option>10</option><option>15</option>
+              <option>20</option><option>25</option><option>30</option><option>35</option>
+              <option>40</option><option>45</option><option>50</option><option>55</option>
+            </select>
+          </div>
+          <div id="hora-tooltip" style="display:none;font-size:.7rem;color:var(--t3);margin-top:6px;font-style:italic">
+            ✓ Usando mediodía (12:00) — puedes cambiarla después
+          </div>
+          <input type="hidden" id="ch"/>
+        </div>
+
+        <!-- EMAIL opcional -->
+        <div class="campo-form">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <span style="font-size:1.1rem">💌</span>
+            <label style="margin:0">Recibe tu horóscopo semanal <span style="color:var(--t3);font-size:.65rem;letter-spacing:.08em">(opcional)</span></label>
+          </div>
+          <input type="email" id="cemail" placeholder="tu@email.com"
+            style="border-bottom:2px solid rgba(212,175,55,.2);border-top:none;border-left:none;border-right:none;
+            border-radius:0;background:transparent;padding:10px 4px;font-size:1rem"
+            onfocus="this.style.borderBottomColor='var(--oro)'"
+            onblur="this.style.borderBottomColor='rgba(212,175,55,.2)'"/>
+        </div>
+
+      </div>
+
+      <div style="display:flex;gap:10px;margin-top:24px;flex-wrap:wrap">
+        <button class="btn bs2" onclick="volverPaso1()"
+          style="padding:12px 20px;font-size:.75rem">
+          ← Volver
+        </button>
+        <button class="btn bg" onclick="genCarta()"
+          style="flex:1;font-size:.82rem;padding:14px 20px;letter-spacing:.15em;
+          animation:btnPulse 2.5s ease-in-out infinite">
+          ✦ Consultar a los Astros
+        </button>
+      </div>
     </div>
   </div>
   <div class="rb" id="carta-r">
     <div style="display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin:-10px 0 18px;font-family:'Cinzel',serif">
   <div style="text-align:center">
-    <div style="font-size:1.4rem;color:var(--oro);font-weight:700">+12,000</div>
+    <div style="font-size:1.4rem;color:var(--oro);font-weight:700">+50,000</div>
     <div style="font-size:.58rem;color:var(--plata);letter-spacing:.1em;text-transform:uppercase">Cartas calculadas</div>
   </div>
   <div style="text-align:center">
@@ -2352,8 +2502,12 @@ function updateHora(){
   document.getElementById('ch').value=(h&&m)?`${h}:${m}`:'';
 }
 function sinH(){
-  document.getElementById('ch-hora').value='06';
+  document.getElementById('ch-hora').value='12';
   document.getElementById('ch-min').value='00';
+  const tooltip=document.getElementById('hora-tooltip');
+  if(tooltip)tooltip.style.display='block';
+  const btn=document.getElementById('btnSinHora');
+  if(btn){btn.style.background='rgba(100,200,100,.15)';btn.textContent='✓ Usando 12:00';}
   document.getElementById('ch').value='06:00';
   genCarta();
 }
@@ -2760,6 +2914,63 @@ function mostrarConfirmacion(){
   document.getElementById('yape-paso1').style.display='none';
   document.getElementById('yape-paso2').style.display='block';
 }
+
+/* ══ FORMULARIO EN PASOS ══ */
+function irPaso2(){
+  const nom=document.getElementById('cn').value.trim();
+  const fch=document.getElementById('cf').value;
+  if(!nom){
+    document.getElementById('cn').focus();
+    document.getElementById('cn').style.borderBottomColor='#FF9090';
+    document.getElementById('cn').placeholder='✦ Ingresa tu nombre primero';
+    return;
+  }
+  if(!fch){
+    document.getElementById('cf').focus();
+    document.getElementById('cf').style.borderBottomColor='#FF9090';
+    return;
+  }
+  // Activar paso 2
+  document.getElementById('paso1').style.display='none';
+  document.getElementById('paso2').style.display='block';
+  document.getElementById('paso2').style.animation='slideIn .4s ease';
+  // Actualizar indicadores
+  document.getElementById('paso-ind-1').style.opacity='.5';
+  document.getElementById('paso-ind-2').style.opacity='1';
+  document.getElementById('paso-ind-2').style.background='rgba(212,175,55,.08)';
+  document.getElementById('paso-ind-2').querySelector('div').style.color='var(--oro)';
+  document.getElementById('progressFill').style.width='100%';
+  // Enfocar ciudad
+  setTimeout(()=>document.getElementById('cc').focus(),400);
+}
+
+function volverPaso1(){
+  document.getElementById('paso2').style.display='none';
+  document.getElementById('paso1').style.display='block';
+  document.getElementById('paso1').style.animation='slideIn .4s ease';
+  document.getElementById('paso-ind-1').style.opacity='1';
+  document.getElementById('paso-ind-2').style.opacity='.4';
+  document.getElementById('progressFill').style.width='50%';
+}
+
+/* ══ DROPDOWN MENÚ ══ */
+function toggleDrop(){
+  const m=document.getElementById('dropMenu');
+  m.style.display=m.style.display==='none'?'block':'none';
+}
+document.addEventListener('click',function(e){
+  const c=document.getElementById('dropContainer');
+  if(c&&!c.contains(e.target))document.getElementById('dropMenu').style.display='none';
+});
+
+/* ══ PARALLAX ESTRELLAS ══ */
+document.addEventListener('mousemove',function(e){
+  const canvas=document.getElementById('stars');
+  if(!canvas)return;
+  const x=(e.clientX/window.innerWidth-.5)*12;
+  const y=(e.clientY/window.innerHeight-.5)*12;
+  canvas.style.transform=`translate(${x}px,${y}px) scale(1.02)`;
+});
 
 /* ── INICIALIZAR TODO AL ARRANQUE ── */
 buildG('sh',i=>shHoro(i));
