@@ -261,22 +261,55 @@ select option{background:#1A1035}
 .lb strong{color:var(--orol)}
 
 /* SIGNS */
-.sgr{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:7px;margin-bottom:18px}
-.scard{background:rgba(26,16,53,.7);border:1px solid var(--bp);border-radius:9px;
+/* HORÓSCOPO MEJORADO */
+.sgr{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:8px;margin-bottom:18px}
+@media(max-width:600px){
+  .sgr{display:flex;overflow-x:auto;gap:8px;padding-bottom:8px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+  .scard{flex-shrink:0;scroll-snap-align:start;width:80px}
+}
+.scard{background:rgba(26,16,53,.7);border:1px solid var(--bp);border-radius:12px;
   padding:11px 6px;text-align:center;cursor:pointer;transition:all .3s}
-.scard:hover,.scard.sel{border-color:var(--oro);background:var(--go);
+.scard:hover{border-color:rgba(212,175,55,.5);background:rgba(212,175,55,.07);transform:translateY(-3px);transition:all .3s}
+.scard.sel{border-color:var(--oro)!important;background:rgba(212,175,55,.12)!important;
+  box-shadow:0 0 22px rgba(212,175,55,.4),0 0 44px rgba(212,175,55,.15),inset 0 0 20px rgba(212,175,55,.05)!important;
+  transform:translateY(-5px) scale(1.06)!important;transition:all .3s}
+.scard.sel .snm{color:var(--orol)!important}
+.scard.sel .ssym{filter:drop-shadow(0 0 8px rgba(212,175,55,.8))!important;font-size:1.8rem!important}
+/* OLD kept for compat */
+.scard_old{border-color:var(--oro);background:var(--go);
   transform:translateY(-3px);box-shadow:0 5px 18px rgba(212,175,55,.2)}
 .ssym{font-size:1.55rem;margin-bottom:3px;line-height:1}
 .snam{font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.09em;color:var(--oro);text-transform:uppercase}
 .sdat{font-size:.53rem;color:var(--plata);margin-top:2px}
 
 /* HORÓSCOPO */
-.hper{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px}
-.hpb{background:none;border:1px solid var(--bp);border-radius:18px;padding:6px 12px;
+/* TABS con línea dorada deslizante */
+.hper{display:flex;gap:0;margin-bottom:20px;border-bottom:2px solid rgba(212,175,55,.15);position:relative}
+.hpb{background:none;border:none;border-bottom:3px solid transparent;padding:10px 16px;
   cursor:pointer;font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.09em;
   color:var(--lav);transition:.2s;text-transform:uppercase}
-.hpb.active{background:var(--purp);border-color:var(--amat);color:var(--orol)}
-.htxt{font-family:'Cormorant Garamond',serif;font-size:1.08rem;line-height:1.85;color:var(--lav);padding:11px 0}
+.hpb.active{color:var(--orol);border-bottom-color:var(--oro);background:none}
+.htxt{font-family:'Cormorant Garamond',serif;font-size:1.08rem;line-height:1.85;color:var(--t2);padding:11px 0}
+/* Tarjetas snackable */
+.hsnack{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:16px 0}
+.hsnack-card{background:linear-gradient(135deg,rgba(45,27,94,.4),rgba(13,10,26,.5));
+  border:1px solid rgba(212,175,55,.18);border-radius:13px;padding:16px;
+  transition:transform .2s,box-shadow .2s}
+.hsnack-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(212,175,55,.1)}
+.hsnack-icon{font-size:1.4rem;margin-bottom:6px}
+.hsnack-label{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.12em;color:var(--oro);margin-bottom:5px;text-transform:uppercase}
+.hsnack-txt{font-family:'Cormorant Garamond',serif;font-size:.95rem;color:var(--t1);line-height:1.6}
+/* Frase del día */
+.hfrase{font-family:'Cormorant Garamond',serif;font-size:clamp(1.2rem,3vw,1.5rem);font-style:italic;
+  color:var(--orol);text-align:center;padding:18px 12px 14px;line-height:1.6;
+  border:1px solid rgba(212,175,55,.2);border-radius:12px;margin-bottom:18px;
+  background:linear-gradient(135deg,rgba(212,175,55,.06),rgba(123,94,167,.06));
+  position:relative}
+.hfrase::before{content:'✦';position:absolute;top:-10px;left:50%;transform:translateX(-50%);
+  background:var(--negro);padding:0 8px;color:var(--oro);font-style:normal;font-size:.8rem}
+/* Signo seleccionado glow */
+.scard.sel{box-shadow:0 0 20px rgba(212,175,55,.4),0 0 40px rgba(212,175,55,.15)!important;
+  border-color:var(--oro)!important;transform:translateY(-4px) scale(1.05)!important}
 .hasp{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:13px}
 .ha{background:rgba(45,27,94,.4);border:1px solid var(--bp);border-radius:9px;padding:11px}
 .hal{font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.1em;color:var(--oro);text-transform:uppercase;margin-bottom:5px}
@@ -855,26 +888,105 @@ p,.trct,.expand-desc{max-width:70ch;line-height:1.85}
     <p class="hsub">Hoy, esta semana, este mes o este año — amor, dinero, trabajo y estudios</p>
   </div>
   <div class="ad"><div style="margin-bottom:3px;text-transform:uppercase">Publicidad</div><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="3333333333" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+  <!-- Auto-detección de signo -->
+  <div id="horo-autodetect" style="display:none;background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.2);
+    border-radius:11px;padding:12px 16px;margin-bottom:14px;display:flex;align-items:center;gap:10px">
+    <span style="font-size:1.4rem" id="horo-auto-sym"></span>
+    <div>
+      <div style="font-family:'Cinzel',serif;font-size:.65rem;color:var(--oro);letter-spacing:.1em">TU SIGNO DETECTADO</div>
+      <div style="font-size:.9rem;color:var(--t1)" id="horo-auto-txt">Basado en tu carta astral</div>
+    </div>
+    <button onclick="usarSignoPropio()" class="btn bg" style="margin-left:auto;padding:7px 14px;font-size:.65rem">Ver mi horóscopo →</button>
+  </div>
+
   <div class="card">
     <div class="ct">♈ Elige tu signo solar</div>
     <div class="sgr" id="sh"></div>
   </div>
+
   <div class="rb" id="hr">
-    <h3 id="htit"></h3>
+    <!-- Encabezado del signo -->
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px">
+      <div id="htit-sym" style="font-size:3rem;filter:drop-shadow(0 0 12px rgba(212,175,55,.5))"></div>
+      <div>
+        <h3 id="htit" style="margin:0;font-size:1.4rem"></h3>
+        <div id="htit-fecha" style="font-size:.72rem;color:var(--t3);font-family:'Cinzel',serif;letter-spacing:.08em;margin-top:2px"></div>
+      </div>
+    </div>
+
+    <!-- Tabs de período mejorados -->
     <div class="hper">
       <button class="hpb active" onclick="setP('hoy',this)">Hoy</button>
       <button class="hpb" onclick="setP('semana',this)">Esta semana</button>
       <button class="hpb" onclick="setP('mes',this)">Este mes</button>
       <button class="hpb" onclick="setP('anio',this)">Este año</button>
     </div>
-    <div class="dv"><span class="ds">✦</span></div>
+
+    <!-- Frase del día -->
+    <div class="hfrase" id="hfrase"></div>
+
+    <!-- Tarjetas snackable -->
+    <div class="hsnack" id="hsnack">
+      <div class="hsnack-card">
+        <div class="hsnack-icon">❤️</div>
+        <div class="hsnack-label">Amor</div>
+        <div class="hsnack-txt" id="hsnack-amor"></div>
+      </div>
+      <div class="hsnack-card">
+        <div class="hsnack-icon">💰</div>
+        <div class="hsnack-label">Dinero</div>
+        <div class="hsnack-txt" id="hsnack-dinero"></div>
+      </div>
+      <div class="hsnack-card">
+        <div class="hsnack-icon">🌿</div>
+        <div class="hsnack-label">Bienestar</div>
+        <div class="hsnack-txt" id="hsnack-bienestar"></div>
+      </div>
+    </div>
+
+    <!-- Texto completo -->
     <p id="htxt" class="htxt"></p>
     <div class="hasp" id="hasp"></div>
-    <div class="lb" style="margin-top:14px">
-      <p>🐱 <strong>Premium:</strong> tránsitos exactos que te afectan <strong id="hplbl">hoy</strong> según TU carta natal</p>
-      <button class="btn bg" onclick="sp('premium')" style="padding:9px 20px">★ Ver tránsitos — S/5/mes</button>
+
+    <!-- CTA compatibilidad -->
+    <div style="text-align:center;margin:16px 0 8px">
+      <button class="btn bs2" onclick="sp('gatitos')" style="font-size:.75rem;padding:10px 20px">
+        🐾 Ver mi compatibilidad de hoy →
+      </button>
     </div>
-    <div class="dlb"><div><p><strong>📲 Guarda tu horóscopo</strong></p><p>Compártelo con quien lo necesite</p></div><button class="btn bg" onclick="dlHoro()">⬇ Descargar</button></div>
+
+    <!-- PREMIUM HORÓSCOPO -->
+    <div style="margin-top:18px;background:linear-gradient(135deg,rgba(45,27,94,.7),rgba(212,175,55,.08));
+      border:1px solid rgba(212,175,55,.25);border-radius:13px;padding:18px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <span style="font-size:1.5rem">🐱</span>
+        <div>
+          <div style="font-family:'Cinzel',serif;font-size:.68rem;color:var(--oro);letter-spacing:.12em">✦ LUNARIS PREMIUM</div>
+          <div style="font-size:.82rem;color:var(--t2);margin-top:2px">Recibe tu horóscopo diario personalizado según TU carta natal</div>
+        </div>
+      </div>
+      <ul style="list-style:none;padding:0;margin:0 0 14px;display:grid;gap:6px">
+        <li style="font-size:.82rem;color:var(--t2)">☽ Tránsitos exactos que te afectan <strong style="color:var(--orol)" id="hplbl">hoy</strong></li>
+        <li style="font-size:.82rem;color:var(--t2)">✦ Horóscopo diario vía WhatsApp cada mañana</li>
+        <li style="font-size:.82rem;color:var(--t2)">🔮 20 consultas al mes con el Minino Místico IA</li>
+        <li style="font-size:.82rem;color:var(--t2)">⭐ Análisis de compatibilidad profundo</li>
+      </ul>
+      <button class="btn bg" onclick="sp('premium')" style="width:100%;justify-content:center;font-size:.78rem;padding:12px">
+        ★ Activar Premium — Solo S/5/mes
+      </button>
+    </div>
+
+    <!-- COMPARTIR CON IMAGEN -->
+    <div style="margin-top:14px;background:rgba(212,175,55,.05);border:1px solid rgba(212,175,55,.15);
+      border-radius:13px;padding:16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+      <div style="flex:1;min-width:160px">
+        <div style="font-family:'Cinzel',serif;font-size:.65rem;color:var(--oro);letter-spacing:.1em;margin-bottom:4px">📲 COMPARTE TU SUERTE</div>
+        <div style="font-size:.8rem;color:var(--t2)">Genera una imagen para tus Stories de Instagram o WhatsApp</div>
+      </div>
+      <button class="btn bg" onclick="compartirHoroscopo()" style="flex-shrink:0;font-size:.72rem;padding:11px 18px">
+        ✨ Compartir mi Suerte
+      </button>
+    </div>
   </div>
   <div class="ad" style="margin-top:26px"><div style="margin-bottom:3px;text-transform:uppercase">Publicidad</div><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="4444444444" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
 </section>
@@ -904,9 +1016,25 @@ p,.trct,.expand-desc{max-width:70ch;line-height:1.85}
     <h3>✦ Mensaje de las Cartas</h3>
     <div class="dv"><span class="ds">☽ ✦ ☾</span></div>
     <div id="tread"></div>
-    <div class="lb" style="margin-top:14px">
-      <p>🐱 ¿Tienes una pregunta específica? <strong>El Minino lee 5 cartas</strong> respondiendo exactamente lo que necesitas saber</p>
-      <button class="btn bg" onclick="sp('premium')" style="padding:9px 20px">★ Consulta específica — S/5/mes</button>
+    <!-- PREMIUM TAROT -->
+    <div style="margin-top:18px;background:linear-gradient(135deg,rgba(45,27,94,.7),rgba(212,175,55,.08));
+      border:1px solid rgba(212,175,55,.25);border-radius:13px;padding:18px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <span style="font-size:1.5rem">🐱</span>
+        <div>
+          <div style="font-family:'Cinzel',serif;font-size:.68rem;color:var(--oro);letter-spacing:.12em">✦ LUNARIS PREMIUM</div>
+          <div style="font-size:.82rem;color:var(--t2);margin-top:2px">El Minino Místico responde tu pregunta específica con 5 cartas</div>
+        </div>
+      </div>
+      <ul style="list-style:none;padding:0;margin:0 0 14px;display:grid;gap:6px">
+        <li style="font-size:.82rem;color:var(--t2)">🃏 Lectura profunda de 5 cartas con IA</li>
+        <li style="font-size:.82rem;color:var(--t2)">✦ Interpretación según TU carta natal</li>
+        <li style="font-size:.82rem;color:var(--t2)">☽ 20 consultas al mes disponibles</li>
+        <li style="font-size:.82rem;color:var(--t2)">⭐ Respuestas en segundos, disponible 24/7</li>
+      </ul>
+      <button class="btn bg" onclick="sp('premium')" style="width:100%;justify-content:center;font-size:.78rem;padding:12px">
+        ★ Activar Premium — Solo S/5/mes
+      </button>
     </div>
     <div class="dlb"><div><p><strong>📲 Guarda tu lectura</strong></p><p>Reflexiónala cuando lo necesites</p></div><button class="btn bg" onclick="dlTarot()">⬇ Descargar</button></div>
   </div>
@@ -930,10 +1058,26 @@ p,.trct,.expand-desc{max-width:70ch;line-height:1.85}
     <div class="ct">↔ Aspectos Activos Hoy</div>
     <div id="ahoyd"></div>
   </div>
-  <div class="lb" style="margin-top:3px">
-    <p>🐱 <strong>Premium:</strong> el Minino explica cómo cada tránsito de hoy afecta TU carta natal específicamente</p>
-    <button class="btn bg" onclick="sp('premium')" style="padding:9px 20px">★ Consultar mi influencia — S/5/mes</button>
-  </div>
+    <!-- PREMIUM ASTROS -->
+    <div style="margin-top:18px;background:linear-gradient(135deg,rgba(45,27,94,.7),rgba(212,175,55,.08));
+      border:1px solid rgba(212,175,55,.25);border-radius:13px;padding:18px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <span style="font-size:1.5rem">🐱</span>
+        <div>
+          <div style="font-family:'Cinzel',serif;font-size:.68rem;color:var(--oro);letter-spacing:.12em">✦ LUNARIS PREMIUM</div>
+          <div style="font-size:.82rem;color:var(--t2);margin-top:2px">El Minino explica cómo cada tránsito de hoy afecta TU carta natal</div>
+        </div>
+      </div>
+      <ul style="list-style:none;padding:0;margin:0 0 14px;display:grid;gap:6px">
+        <li style="font-size:.82rem;color:var(--t2)">🪐 Análisis de tránsitos según tu carta natal</li>
+        <li style="font-size:.82rem;color:var(--t2)">☽ Alertas de tránsitos importantes del mes</li>
+        <li style="font-size:.82rem;color:var(--t2)">✦ Predicciones personalizadas cada semana</li>
+        <li style="font-size:.82rem;color:var(--t2)">⭐ Horóscopo diario vía WhatsApp</li>
+      </ul>
+      <button class="btn bg" onclick="sp('premium')" style="width:100%;justify-content:center;font-size:.78rem;padding:12px">
+        ★ Activar Premium — Solo S/5/mes
+      </button>
+    </div>
   <div class="ad" style="margin-top:22px"><div style="margin-bottom:3px;text-transform:uppercase">Publicidad</div><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="7777777777" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
 </section>
 
@@ -1247,7 +1391,7 @@ function swMod(t,btn){
 function loginU(){alert('🐱 Sistema de login con Supabase en versión final.');closeMod()}
 function regU(){alert('🐱 ¡Cuenta creada! Sistema completo en versión final.');closeMod()}
 function initP(id){
-  if(id==='horo')buildG('sh',i=>shHoro(i));
+  if(id==='horo'){buildG('sh',i=>shHoro(i));setTimeout(detectarSignoHoro,300);}
   if(id==='astros')buildAstros();
   if(id==='gatitos'){cg1=-1;cg2=-1;buildGatos();buildG('cg1',i=>{cg1=i});buildG('cg2',i=>{cg2=i})}
 }
@@ -1847,6 +1991,8 @@ function procesarCartaLocal(nom,fch,hh,mm){
 }
 
 function completarCarta(si,li,ai,nom,fch){
+  // Guardar signo para auto-detección en horóscopo
+  window._signoPropio=si;
   const sg=SG[si],luna=SG[li],asc=SG[ai];
 
   // Usar posiciones reales si Astronomy Engine las calculó
@@ -2360,11 +2506,77 @@ function sinH(){document.getElementById('ch').value='06:00';genCarta()}
 
 /* ── HORÓSCOPO ── */
 let hIdx=0,hPer='hoy';
-function shHoro(i){hIdx=i;document.getElementById('htit').textContent=`${SG[i].s} ${SG[i].n}`;renderH();const r=document.getElementById('hr');r.classList.add('show');r.scrollIntoView({behavior:'smooth',block:'start'})}
-function setP(p,btn){hPer=p;document.querySelectorAll('.hpb').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.getElementById('hplbl').textContent={hoy:'hoy',semana:'esta semana',mes:'este mes',anio:'este año'}[p];renderH()}
+const HFRASES=['Hoy es día de liderar, Aries — el fuego que llevas es tu mayor regalo', 'Hoy la tierra te sostiene, Tauro — confía en lo que tus manos construyen', 'Hoy las palabras son tu varita mágica, Géminis — úsalas con intención', 'Hoy tu corazón es tu brújula, Cáncer — sigue su llamado sin dudar', 'Hoy es día de brillar sin pedir permiso, Leo — el universo te lo pide', 'Hoy los detalles revelan grandes verdades, Virgo — presta atención', 'Hoy el equilibrio llega cuando te permites sentir, Libra', 'Hoy tu intensidad es un superpoder, Escorpio — úsala con sabiduría', 'Hoy el horizonte se expande, Sagitario — atrévete a ir más lejos', 'Hoy tu constancia da frutos inesperados, Capricornio', 'Hoy tu originalidad abre puertas que nadie más puede ver, Acuario', 'Hoy lo invisible te guía, Piscis — confía en tu intuición profunda'];
+const HSNACK_AMOR=[['Conexiones apasionadas se acercan', 'Semana de honrar vínculos profundos', 'El mes trae reencuentros significativos', 'Año de transformación en el amor'], ['La lealtad es tu mayor atractivo', 'Semana para expresar lo que sientes', 'El mes consolida relaciones duraderas', 'Año de construir amor sólido'], ['La conversación abre corazones', 'Semana de reconectar con seres queridos', 'El mes trae nuevas conexiones mentales', 'Año de comunicar el amor con claridad'], ['Tu ternura enamora profundamente', 'Semana de nutrir lo que amas', 'El mes fortalece lazos familiares', 'Año de crear hogar en el corazón'], ['Tu generosidad ilumina relaciones', 'Semana de recibir el amor que mereces', 'El mes trae romance y celebración', 'Año de brillar en el amor'], ['La honestidad profundiza el vínculo', 'Semana de cuidar los pequeños gestos', 'El mes mejora la comunicación en pareja', 'Año de perfeccionar las relaciones'], ['El equilibrio llega a tus vínculos', 'Semana de dar y recibir por igual', 'El mes trae armonía en el amor', 'Año de relaciones más justas y bellas'], ['La intensidad transforma el amor', 'Semana de conexiones profundas y reales', 'El mes renueva lo que más valoras', 'Año de amor que transforma'], ['La aventura seduce y conquista', 'Semana de explorar el amor libremente', 'El mes expande tu mundo afectivo', 'Año de amor que te hace crecer'], ['La paciencia construye amor duradero', 'Semana de comprometerse con lo que importa', 'El mes consolida uniones serias', 'Año de amor que resiste el tiempo'], ['Tu autenticidad atrae almas afines', 'Semana de conexiones que te entienden', 'El mes trae amistad que se vuelve amor', 'Año de relaciones que te liberan'], ['Tu compasión crea lazos eternos', 'Semana de amor incondicional y profundo', 'El mes disuelve barreras en el corazón', 'Año de amor espiritual y trascendente']];
+const HSNACK_DINERO=[['Nuevas oportunidades de liderazgo', 'Semana de iniciativa económica', 'El mes abre caminos financieros', 'Año de prosperidad por acción directa'], ['La constancia trae abundancia real', 'Semana de invertir en lo seguro', 'El mes consolida recursos materiales', 'Año de riqueza construida con paciencia'], ['Las ideas se convierten en ingresos', 'Semana de negocios con comunicación', 'El mes multiplica contactos valiosos', 'Año de prosperidad mental'], ['La intuición guía buenas inversiones', 'Semana de cuidar los recursos del hogar', 'El mes trae seguridad financiera', 'Año de abundancia emocional y material'], ['Tu carisma abre puertas de oro', 'Semana de proyectos creativos rentables', 'El mes trae reconocimiento económico', 'Año de prosperidad con brillo propio'], ['El análisis revela grandes oportunidades', 'Semana de organizar las finanzas', 'El mes optimiza cada recurso', 'Año de abundancia por precisión'], ['Las asociaciones traen prosperidad', 'Semana de negociar con elegancia', 'El mes equilibra ingresos y gastos', 'Año de riqueza compartida'], ['Las inversiones profundas rinden frutos', 'Semana de recursos transformadores', 'El mes revela ganancias ocultas', 'Año de poder financiero renovado'], ['La expansión trae nuevas fuentes', 'Semana de oportunidades lejanas', 'El mes multiplica las posibilidades', 'Año de abundancia sin fronteras'], ['La disciplina maximiza cada recurso', 'Semana de construir patrimonio sólido', 'El mes consolida metas financieras', 'Año de éxito económico sostenido'], ['Las ideas innovadoras generan ingresos', 'Semana de proyectos tecnológicos', 'El mes trae ganancias inesperadas', 'Año de prosperidad original'], ['La creatividad espiritual genera abundancia', 'Semana de confiar en el flujo del dinero', 'El mes disuelve bloqueos financieros', 'Año de prosperidad intuitiva']];
+const HSNACK_BIEN=[['El movimiento físico recarga tu energía', 'Semana de ejercitar el cuerpo y la mente', 'El mes pide descanso activo', 'Año de vitalidad que inspira'], ['La conexión con la naturaleza sana', 'Semana de rutinas que nutren el cuerpo', 'El mes invita a comer conscientemente', 'Año de salud construida con paciencia'], ['La mente activa mantiene el cuerpo sano', 'Semana de aprender algo nuevo para el alma', 'El mes equilibra mente y cuerpo', 'Año de bienestar mental y físico'], ['El autocuidado es tu mejor medicina', 'Semana de escuchar las señales del cuerpo', 'El mes pide descanso emocional profundo', 'Año de sanación desde adentro'], ['La alegría es tu mejor energía vital', 'Semana de hacer lo que te da vida', 'El mes pide expresión creativa', 'Año de bienestar luminoso'], ['El orden interno se refleja en el cuerpo', 'Semana de hábitos saludables precisos', 'El mes optimiza rutinas de bienestar', 'Año de salud perfectamente cuidada'], ['El equilibrio interno sana el cuerpo', 'Semana de armonizar cuerpo y mente', 'El mes pide belleza y cuidado personal', 'Año de bienestar en perfecta armonía'], ['La transformación interior sana todo', 'Semana de soltar lo que pesa al cuerpo', 'El mes renueva energía vital profunda', 'Año de regeneración completa'], ['La aventura recarga el espíritu', 'Semana de aire fresco y espacios abiertos', 'El mes pide movimiento y libertad', 'Año de bienestar expansivo'], ['La disciplina es el mejor remedio', 'Semana de comprometerse con la salud', 'El mes consolida hábitos poderosos', 'Año de cuerpo fuerte y duradero'], ['Lo diferente revitaliza el cuerpo', 'Semana de probar nuevas prácticas', 'El mes trae energía inesperada', 'Año de bienestar innovador'], ['La meditación es tu medicina diaria', 'Semana de conectar cuerpo y espíritu', 'El mes disuelve tensiones profundas', 'Año de paz interior y salud espiritual']];
+const HPER_IDX={hoy:0,semana:1,mes:2,anio:3};
+
+function shHoro(i){
+  hIdx=i;
+  // Actualizar encabezado con símbolo grande
+  document.getElementById('htit').textContent=SG[i].n;
+  const symEl=document.getElementById('htit-sym');
+  if(symEl)symEl.textContent=SG[i].s;
+  // Fecha del signo
+  const fechas=['21 Mar - 19 Abr','20 Abr - 20 May','21 May - 20 Jun','21 Jun - 22 Jul','23 Jul - 22 Ago','23 Ago - 22 Sep','23 Sep - 22 Oct','23 Oct - 21 Nov','22 Nov - 21 Dic','22 Dic - 19 Ene','20 Ene - 18 Feb','19 Feb - 20 Mar'];
+  const fechaEl=document.getElementById('htit-fecha');
+  if(fechaEl)fechaEl.textContent=fechas[i]||'';
+  renderH();
+  const r=document.getElementById('hr');
+  r.classList.add('show');
+  r.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function setP(p,btn){
+  hPer=p;
+  document.querySelectorAll('.hpb').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('hplbl').textContent={hoy:'hoy',semana:'esta semana',mes:'este mes',anio:'este año'}[p];
+  renderH();
+}
+
 function renderH(){
+  const pi=HPER_IDX[hPer]||0;
+  // Texto principal
   document.getElementById('htxt').textContent=HR[hPer][hIdx];
+  // Frase del día
+  const fraseEl=document.getElementById('hfrase');
+  if(fraseEl)fraseEl.textContent=HFRASES[hIdx]||'';
+  // Snacks
+  const amorEl=document.getElementById('hsnack-amor');
+  const dineroEl=document.getElementById('hsnack-dinero');
+  const bienEl=document.getElementById('hsnack-bienestar');
+  if(amorEl)amorEl.textContent=HSNACK_AMOR[hIdx]?.[pi]||'';
+  if(dineroEl)dineroEl.textContent=HSNACK_DINERO[hIdx]?.[pi]||'';
+  if(bienEl)bienEl.textContent=HSNACK_BIEN[hIdx]?.[pi]||'';
+  // Aspectos
   document.getElementById('hasp').innerHTML=AV.map(a=>`<div class="ha"><div class="hal">${a.icon} ${a.lbl}</div><div class="habar"><div class="hafill" style="width:${rnd(55,95)}%"></div></div><div class="hatxt">${a.txt[rnd(0,a.txt.length-1)]}</div></div>`).join('');
+}
+
+function usarSignoPropio(){
+  if(window._signoPropio!==undefined)shHoro(window._signoPropio);
+}
+
+// Auto-detectar signo desde carta astral
+function detectarSignoHoro(){
+  // Intentar leer de la carta si ya fue calculada
+  const btv=document.querySelector('.btv');
+  if(btv){
+    const signoTxt=btv.textContent.trim();
+    const idx=SG.findIndex(s=>s.n===signoTxt);
+    if(idx>=0){
+      window._signoPropio=idx;
+      const detect=document.getElementById('horo-autodetect');
+      if(detect){
+        detect.style.display='flex';
+        const sym=document.getElementById('horo-auto-sym');
+        const txt=document.getElementById('horo-auto-txt');
+        if(sym)sym.textContent=SG[idx].s;
+        if(txt)txt.textContent=`Tu signo solar es ${SG[idx].n} — ver tu horóscopo`;
+      }
+    }
+  }
 }
 
 /* ── TAROT ── */
@@ -2913,6 +3125,132 @@ function closeModalYape(){document.getElementById('molYape').classList.remove('o
 function mostrarConfirmacion(){
   document.getElementById('yape-paso1').style.display='none';
   document.getElementById('yape-paso2').style.display='block';
+}
+
+/* ══ COMPARTIR HORÓSCOPO CON IMAGEN ══ */
+function compartirHoroscopo(){
+  const signo=document.getElementById('htit')?.textContent||'';
+  const sym=document.getElementById('htit-sym')?.textContent||'';
+  const frase=document.getElementById('hfrase')?.textContent||'';
+  const amor=document.getElementById('hsnack-amor')?.textContent||'';
+  const dinero=document.getElementById('hsnack-dinero')?.textContent||'';
+  const bien=document.getElementById('hsnack-bienestar')?.textContent||'';
+  if(!signo){alert('🐱 Primero elige tu signo');return;}
+
+  const W=1080,H=1080; // Formato cuadrado para Instagram
+  const cv=document.createElement('canvas');
+  cv.width=W;cv.height=H;
+  const ctx=cv.getContext('2d');
+
+  // Fondo degradado místico
+  const bg=ctx.createRadialGradient(W/2,H*0.3,0,W/2,H/2,W*0.8);
+  bg.addColorStop(0,'#1A0A35');
+  bg.addColorStop(0.5,'#0D0818');
+  bg.addColorStop(1,'#080612');
+  ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+
+  // Estrellas decorativas
+  ctx.fillStyle='rgba(255,255,255,0.6)';
+  for(let i=0;i<80;i++){
+    const x=Math.random()*W,y=Math.random()*H;
+    const r=Math.random()*1.5;
+    ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();
+  }
+
+  // Borde dorado
+  ctx.strokeStyle='rgba(212,175,55,0.4)';ctx.lineWidth=3;
+  ctx.strokeRect(20,20,W-40,H-40);
+  ctx.strokeStyle='rgba(212,175,55,0.15)';ctx.lineWidth=1;
+  ctx.strokeRect(28,28,W-56,H-56);
+
+  // Logo Lunaris
+  ctx.fillStyle='#D4AF37';ctx.font='bold 28px serif';ctx.textAlign='center';
+  ctx.fillText('✦ LUNARIS ✦',W/2,70);
+  ctx.fillStyle='rgba(212,175,55,0.3)';ctx.fillRect(80,82,W-160,1);
+
+  // Símbolo del signo grande
+  ctx.font=`${200}px serif`;ctx.textAlign='center';
+  ctx.globalAlpha=0.15;ctx.fillStyle='#D4AF37';
+  ctx.fillText(sym,W/2,420);
+  ctx.globalAlpha=1;
+  ctx.font='140px serif';
+  ctx.fillStyle='rgba(212,175,55,0.9)';
+  ctx.shadowColor='rgba(212,175,55,0.6)';ctx.shadowBlur=40;
+  ctx.fillText(sym,W/2,330);
+  ctx.shadowBlur=0;
+
+  // Nombre del signo
+  ctx.fillStyle='#F5E27A';ctx.font='bold 52px Cinzel,serif';ctx.textAlign='center';
+  ctx.letterSpacing='8px';
+  ctx.fillText(signo.toUpperCase(),W/2,400);
+
+  // Línea divisora
+  ctx.fillStyle='rgba(212,175,55,0.4)';ctx.fillRect(120,420,W-240,1);
+
+  // Frase del día
+  ctx.fillStyle='#F5F0FF';ctx.font='italic 32px Cormorant Garamond,Georgia,serif';
+  ctx.textAlign='center';
+  // Wrap de la frase
+  const words=frase.split(' ');let line='';let y=480;
+  words.forEach(w=>{
+    const t=line+w+' ';
+    if(ctx.measureText(t).width>780&&line){
+      ctx.fillText(line.trim(),W/2,y);y+=44;line=w+' ';
+    }else line=t;
+  });
+  if(line)ctx.fillText(line.trim(),W/2,y);y+=60;
+
+  // Tarjetas snack
+  const cards=[
+    {icon:'❤️',label:'AMOR',txt:amor},
+    {icon:'💰',label:'DINERO',txt:dinero},
+    {icon:'🌿',label:'BIENESTAR',txt:bien}
+  ];
+  const cardW=280,cardH=140,cardY=y+10;
+  const startX=(W-cardW*3-20)/2;
+  cards.forEach((card,i)=>{
+    const cx=startX+i*(cardW+10);
+    // Fondo tarjeta
+    ctx.fillStyle='rgba(45,27,94,0.5)';
+    roundRect(ctx,cx,cardY,cardW,cardH,12);ctx.fill();
+    ctx.strokeStyle='rgba(212,175,55,0.2)';ctx.lineWidth=1;
+    roundRect(ctx,cx,cardY,cardW,cardH,12);ctx.stroke();
+    // Icono
+    ctx.font='26px serif';ctx.textAlign='center';
+    ctx.fillText(card.icon,cx+cardW/2,cardY+34);
+    // Label
+    ctx.fillStyle='#D4AF37';ctx.font='bold 13px Cinzel,sans-serif';
+    ctx.fillText(card.label,cx+cardW/2,cardY+58);
+    // Texto
+    ctx.fillStyle='rgba(245,240,255,0.85)';ctx.font='13px serif';
+    const wds=card.txt.split(' ');let ln='';let ty=cardY+78;
+    wds.forEach(w=>{
+      const t=ln+w+' ';
+      if(ctx.measureText(t).width>cardW-20&&ln){
+        ctx.fillText(ln.trim(),cx+cardW/2,ty);ty+=18;ln=w+' ';
+      }else ln=t;
+    });
+    if(ln)ctx.fillText(ln.trim(),cx+cardW/2,ty);
+  });
+
+  // Footer
+  ctx.fillStyle='rgba(212,175,55,0.2)';ctx.fillRect(80,H-60,W-160,1);
+  ctx.fillStyle='rgba(192,192,208,0.4)';ctx.font='18px Cinzel,sans-serif';ctx.textAlign='center';
+  ctx.fillText('lunaris.com  ·  Tu mapa cósmico personalizado',W/2,H-28);
+
+  // Descargar
+  const a=document.createElement('a');
+  a.download=`horoscopo-${signo.toLowerCase()}-lunaris.png`;
+  a.href=cv.toDataURL('image/png',0.95);
+  a.click();
+}
+
+function roundRect(ctx,x,y,w,h,r){
+  ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);
+  ctx.quadraticCurveTo(x+w,y,x+w,y+r);ctx.lineTo(x+w,y+h-r);
+  ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);ctx.lineTo(x+r,y+h);
+  ctx.quadraticCurveTo(x,y+h,x,y+h-r);ctx.lineTo(x,y+r);
+  ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();
 }
 
 /* ══ FORMULARIO EN PASOS ══ */
