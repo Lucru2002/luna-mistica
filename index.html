@@ -288,22 +288,29 @@ select option{background:#1A1035}
 .hpb{background:none;border:none;border-bottom:3px solid transparent;padding:10px 16px;
   cursor:pointer;font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.09em;
   color:var(--lav);transition:.2s;text-transform:uppercase}
-.hpb.active{color:var(--orol);border-bottom-color:var(--oro);background:none}
+.hpb{transition:color .2s,border-color .2s}
+.hpb:hover{color:var(--orol);background:rgba(212,175,55,.05)}
+.hpb.active{color:var(--orol);border-bottom-color:var(--oro);background:none;font-weight:600}
 .htxt{font-family:'Cormorant Garamond',serif;font-size:1.08rem;line-height:1.85;color:var(--t2);padding:11px 0}
 /* Tarjetas snackable */
-.hsnack{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:16px 0}
-.hsnack-card{background:linear-gradient(135deg,rgba(45,27,94,.4),rgba(13,10,26,.5));
-  border:1px solid rgba(212,175,55,.18);border-radius:13px;padding:16px;
-  transition:transform .2s,box-shadow .2s}
-.hsnack-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(212,175,55,.1)}
-.hsnack-icon{font-size:1.4rem;margin-bottom:6px}
-.hsnack-label{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.12em;color:var(--oro);margin-bottom:5px;text-transform:uppercase}
-.hsnack-txt{font-family:'Cormorant Garamond',serif;font-size:.95rem;color:var(--t1);line-height:1.6}
+.hsnack{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:20px 0}
+.hsnack-card{background:linear-gradient(135deg,rgba(45,27,94,.5),rgba(13,10,26,.6));
+  border:1px solid rgba(212,175,55,.2);border-radius:16px;padding:22px 20px;
+  transition:transform .25s,box-shadow .25s;position:relative;overflow:hidden}
+.hsnack-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(212,175,55,.4),transparent)}
+.hsnack-card:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(212,175,55,.12)}
+.hsnack-icon{font-size:1.8rem;margin-bottom:10px;display:block}
+.hsnack-label{font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.14em;
+  color:var(--oro);margin-bottom:8px;text-transform:uppercase;font-weight:600}
+.hsnack-txt{font-family:'Raleway',sans-serif;font-size:.95rem;color:var(--t1);
+  line-height:1.65;font-style:normal;font-weight:400}
 /* Frase del día */
-.hfrase{font-family:'Cormorant Garamond',serif;font-size:clamp(1.2rem,3vw,1.5rem);font-style:italic;
-  color:var(--orol);text-align:center;padding:18px 12px 14px;line-height:1.6;
-  border:1px solid rgba(212,175,55,.2);border-radius:12px;margin-bottom:18px;
-  background:linear-gradient(135deg,rgba(212,175,55,.06),rgba(123,94,167,.06));
+.hfrase{font-family:'Cormorant Garamond',serif;font-size:clamp(1.15rem,2.8vw,1.4rem);
+  font-style:normal;font-weight:600;
+  color:#F5F0FF;text-align:center;padding:20px 16px 16px;line-height:1.65;
+  border:1px solid rgba(212,175,55,.22);border-radius:14px;margin-bottom:20px;
+  background:linear-gradient(135deg,rgba(212,175,55,.07),rgba(123,94,167,.07));
   position:relative}
 .hfrase::before{content:'✦';position:absolute;top:-10px;left:50%;transform:translateX(-50%);
   background:var(--negro);padding:0 8px;color:var(--oro);font-style:normal;font-size:.8rem}
@@ -976,16 +983,55 @@ p,.trct,.expand-desc{max-width:70ch;line-height:1.85}
       </button>
     </div>
 
-    <!-- COMPARTIR CON IMAGEN -->
-    <div style="margin-top:14px;background:rgba(212,175,55,.05);border:1px solid rgba(212,175,55,.15);
-      border-radius:13px;padding:16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
-      <div style="flex:1;min-width:160px">
-        <div style="font-family:'Cinzel',serif;font-size:.65rem;color:var(--oro);letter-spacing:.1em;margin-bottom:4px">📲 COMPARTE TU SUERTE</div>
-        <div style="font-size:.8rem;color:var(--t2)">Genera una imagen para tus Stories de Instagram o WhatsApp</div>
+    <!-- COMPARTIR CON PREVISUALIZACIÓN -->
+    <div style="margin-top:18px;border:1px solid rgba(212,175,55,.2);border-radius:16px;overflow:hidden">
+      <!-- Encabezado -->
+      <div style="background:linear-gradient(135deg,rgba(212,175,55,.1),rgba(45,27,94,.3));
+        padding:14px 18px;border-bottom:1px solid rgba(212,175,55,.15);
+        display:flex;align-items:center;gap:10px">
+        <span style="font-size:1.2rem">📲</span>
+        <div>
+          <div style="font-family:'Cinzel',serif;font-size:.68rem;color:var(--oro);letter-spacing:.12em">COMPARTE TU SUERTE</div>
+          <div style="font-size:.75rem;color:var(--t3);margin-top:1px">Imagen vertical lista para Instagram Stories y WhatsApp</div>
+        </div>
       </div>
-      <button class="btn bg" onclick="compartirHoroscopo()" style="flex-shrink:0;font-size:.72rem;padding:11px 18px">
-        ✨ Compartir mi Suerte
-      </button>
+      <!-- Layout: preview + info -->
+      <div style="padding:18px;display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap">
+        <!-- Miniatura previsualización -->
+        <div style="flex-shrink:0">
+          <div style="font-family:'Cinzel',serif;font-size:.58rem;color:var(--t3);
+            letter-spacing:.1em;text-align:center;margin-bottom:8px">VISTA PREVIA</div>
+          <div style="width:72px;height:128px;border-radius:8px;overflow:hidden;
+            border:1px solid rgba(212,175,55,.3);position:relative;cursor:pointer"
+            onclick="compartirHoroscopo()" title="Descargar imagen">
+            <canvas id="previewCanvas" width="72" height="128"
+              style="width:72px;height:128px;display:block"></canvas>
+            <!-- Overlay hover -->
+            <div style="position:absolute;inset:0;background:rgba(212,175,55,.15);
+              opacity:0;transition:.2s;display:flex;align-items:center;justify-content:center;
+              font-size:.7rem;color:var(--oro)"
+              onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0">⬇</div>
+          </div>
+          <div style="font-size:.55rem;color:var(--t3);text-align:center;margin-top:5px">1080×1920px</div>
+        </div>
+        <!-- Info y botón -->
+        <div style="flex:1;min-width:160px">
+          <div style="font-size:.8rem;color:var(--t2);line-height:1.6;margin-bottom:14px">
+            Descarga una imagen <strong style="color:var(--orol)">vertical y profesional</strong>
+            con tu frase mantra, el horóscopo del día y el branding de Lunaris.
+            <br><span style="color:var(--t3);font-size:.72rem">✦ Optimizada para Stories · 9:16 · Alta resolución</span>
+          </div>
+          <button class="btn bg" onclick="compartirHoroscopo()"
+            style="width:100%;justify-content:center;font-size:.75rem;
+            padding:13px 16px;letter-spacing:.12em;
+            animation:btnPulse 2.5s ease-in-out infinite">
+            ✦ DESCARGAR MI GUÍA PARA INSTAGRAM ✦
+          </button>
+          <div style="margin-top:10px;text-align:center;font-size:.65rem;color:var(--t3)">
+            #LunarisAstrologia · #HoroscopoDiario
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="ad" style="margin-top:26px"><div style="margin-bottom:3px;text-transform:uppercase">Publicidad</div><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="4444444444" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
@@ -2552,6 +2598,80 @@ function renderH(){
   if(bienEl)bienEl.textContent=HSNACK_BIEN[hIdx]?.[pi]||'';
   // Aspectos
   document.getElementById('hasp').innerHTML=AV.map(a=>`<div class="ha"><div class="hal">${a.icon} ${a.lbl}</div><div class="habar"><div class="hafill" style="width:${rnd(55,95)}%"></div></div><div class="hatxt">${a.txt[rnd(0,a.txt.length-1)]}</div></div>`).join('');
+  // Actualizar preview miniatura
+  setTimeout(actualizarPreview,100);
+}
+
+function actualizarPreview(){
+  const cv=document.getElementById('previewCanvas');
+  if(!cv)return;
+  const W=72,H=128;
+  const ctx=cv.getContext('2d');
+  const signo=document.getElementById('htit')?.textContent?.trim()||'';
+  const sym=document.getElementById('htit-sym')?.textContent?.trim()||'';
+  const frase=document.getElementById('hfrase')?.textContent?.trim()||'';
+
+  // Fondo
+  const bg=ctx.createLinearGradient(0,0,W,H);
+  bg.addColorStop(0,'#06030F');bg.addColorStop(0.5,'#0D0820');bg.addColorStop(1,'#08040F');
+  ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+
+  // Neblina
+  const nb=ctx.createRadialGradient(W*0.3,H*0.2,0,W*0.3,H*0.2,35);
+  nb.addColorStop(0,'rgba(123,94,167,0.3)');nb.addColorStop(1,'transparent');
+  ctx.fillStyle=nb;ctx.fillRect(0,0,W,H);
+
+  // Estrellitas
+  ctx.fillStyle='rgba(255,255,255,0.5)';
+  [[8,10],[60,20],[15,50],[65,80],[30,100],[55,115]].forEach(([x,y])=>{
+    ctx.beginPath();ctx.arc(x,y,0.7,0,Math.PI*2);ctx.fill();
+  });
+
+  // Marco
+  ctx.strokeStyle='rgba(212,175,55,0.35)';ctx.lineWidth=1;ctx.strokeRect(2,2,W-4,H-4);
+
+  // Logo
+  ctx.fillStyle='rgba(212,175,55,0.8)';ctx.font='bold 5px serif';ctx.textAlign='center';
+  ctx.fillText('✦ LUNARIS ✦',W/2,10);
+  ctx.fillStyle='rgba(212,175,55,0.2)';ctx.fillRect(6,13,W-12,0.5);
+
+  // Símbolo
+  ctx.font='28px serif';ctx.textAlign='center';
+  ctx.shadowColor='rgba(212,175,55,0.7)';ctx.shadowBlur=8;
+  ctx.fillStyle='rgba(212,175,55,0.95)';
+  ctx.fillText(sym,W/2,52);ctx.shadowBlur=0;
+
+  // Nombre signo
+  ctx.font='bold 7px Cinzel,sans-serif';ctx.fillStyle='#F5F0FF';
+  ctx.fillText(signo.toUpperCase(),W/2,63);
+
+  // Línea
+  ctx.fillStyle='rgba(212,175,55,0.3)';ctx.fillRect(10,67,W-20,0.5);
+
+  // Frase (recortada)
+  ctx.fillStyle='rgba(245,226,122,0.9)';ctx.font='italic 5px serif';
+  const fraseCorta=frase.length>40?frase.substring(0,40)+'...':frase;
+  const fWords=fraseCorta.split(' ');let fLine='';let fy=77;
+  fWords.forEach(w=>{
+    const t=fLine+w+' ';
+    if(ctx.measureText(t).width>W-16&&fLine){ctx.fillText(fLine.trim(),W/2,fy);fy+=7;fLine=w+' ';}
+    else fLine=t;
+  });
+  if(fLine&&fy<95)ctx.fillText(fLine.trim(),W/2,fy);
+
+  // Tarjetas mini
+  [['❤',96,'rgba(220,80,120,0.7)'],['◈',106,'rgba(212,175,55,0.8)'],['✿',116,'rgba(100,200,130,0.7)']].forEach(([icon,y,col])=>{
+    ctx.fillStyle='rgba(45,27,94,0.6)';
+    ctx.fillRect(8,y-7,W-16,9);
+    ctx.fillStyle=col;ctx.font='6px serif';ctx.textAlign='left';
+    ctx.fillText(icon,11,y);
+    ctx.fillStyle='rgba(245,240,255,0.7)';ctx.font='5px sans-serif';
+    ctx.fillText('────────────────',20,y);
+  });
+
+  // URL
+  ctx.fillStyle='rgba(192,192,208,0.35)';ctx.font='4px sans-serif';ctx.textAlign='center';
+  ctx.fillText('lunaris.com',W/2,H-4);
 }
 
 function usarSignoPropio(){
@@ -3129,118 +3249,217 @@ function mostrarConfirmacion(){
 
 /* ══ COMPARTIR HORÓSCOPO CON IMAGEN ══ */
 function compartirHoroscopo(){
-  const signo=document.getElementById('htit')?.textContent||'';
-  const sym=document.getElementById('htit-sym')?.textContent||'';
-  const frase=document.getElementById('hfrase')?.textContent||'';
-  const amor=document.getElementById('hsnack-amor')?.textContent||'';
-  const dinero=document.getElementById('hsnack-dinero')?.textContent||'';
-  const bien=document.getElementById('hsnack-bienestar')?.textContent||'';
+  const signo=document.getElementById('htit')?.textContent?.trim()||'';
+  const sym=document.getElementById('htit-sym')?.textContent?.trim()||'';
+  const frase=document.getElementById('hfrase')?.textContent?.trim()||'';
+  const amor=document.getElementById('hsnack-amor')?.textContent?.trim()||'';
+  const dinero=document.getElementById('hsnack-dinero')?.textContent?.trim()||'';
+  const bien=document.getElementById('hsnack-bienestar')?.textContent?.trim()||'';
+  const periodo=document.querySelector('.hpb.active')?.textContent?.trim()||'Hoy';
+
   if(!signo){alert('🐱 Primero elige tu signo');return;}
 
-  const W=1080,H=1080; // Formato cuadrado para Instagram
+  // Formato VERTICAL 1080x1920 para Instagram Stories
+  const W=1080,H=1920;
   const cv=document.createElement('canvas');
   cv.width=W;cv.height=H;
   const ctx=cv.getContext('2d');
 
-  // Fondo degradado místico
-  const bg=ctx.createRadialGradient(W/2,H*0.3,0,W/2,H/2,W*0.8);
-  bg.addColorStop(0,'#1A0A35');
-  bg.addColorStop(0.5,'#0D0818');
-  bg.addColorStop(1,'#080612');
+  // ── FONDO: cielo estrellado profundo ──
+  const bg=ctx.createLinearGradient(0,0,W,H);
+  bg.addColorStop(0,'#06030F');
+  bg.addColorStop(0.3,'#0D0820');
+  bg.addColorStop(0.7,'#110A28');
+  bg.addColorStop(1,'#08040F');
   ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
 
-  // Estrellas decorativas
-  ctx.fillStyle='rgba(255,255,255,0.6)';
-  for(let i=0;i<80;i++){
-    const x=Math.random()*W,y=Math.random()*H;
-    const r=Math.random()*1.5;
-    ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();
-  }
+  // Neblina cósmica
+  const nebula1=ctx.createRadialGradient(W*0.2,H*0.2,0,W*0.2,H*0.2,400);
+  nebula1.addColorStop(0,'rgba(123,94,167,0.18)');
+  nebula1.addColorStop(1,'transparent');
+  ctx.fillStyle=nebula1;ctx.fillRect(0,0,W,H);
 
-  // Borde dorado
-  ctx.strokeStyle='rgba(212,175,55,0.4)';ctx.lineWidth=3;
-  ctx.strokeRect(20,20,W-40,H-40);
-  ctx.strokeStyle='rgba(212,175,55,0.15)';ctx.lineWidth=1;
-  ctx.strokeRect(28,28,W-56,H-56);
+  const nebula2=ctx.createRadialGradient(W*0.8,H*0.6,0,W*0.8,H*0.6,350);
+  nebula2.addColorStop(0,'rgba(212,175,55,0.08)');
+  nebula2.addColorStop(1,'transparent');
+  ctx.fillStyle=nebula2;ctx.fillRect(0,0,W,H);
 
-  // Logo Lunaris
-  ctx.fillStyle='#D4AF37';ctx.font='bold 28px serif';ctx.textAlign='center';
-  ctx.fillText('✦ LUNARIS ✦',W/2,70);
-  ctx.fillStyle='rgba(212,175,55,0.3)';ctx.fillRect(80,82,W-160,1);
+  const nebula3=ctx.createRadialGradient(W*0.5,H*0.85,0,W*0.5,H*0.85,300);
+  nebula3.addColorStop(0,'rgba(45,27,94,0.25)');
+  nebula3.addColorStop(1,'transparent');
+  ctx.fillStyle=nebula3;ctx.fillRect(0,0,W,H);
 
-  // Símbolo del signo grande
-  ctx.font=`${200}px serif`;ctx.textAlign='center';
-  ctx.globalAlpha=0.15;ctx.fillStyle='#D4AF37';
-  ctx.fillText(sym,W/2,420);
-  ctx.globalAlpha=1;
-  ctx.font='140px serif';
-  ctx.fillStyle='rgba(212,175,55,0.9)';
-  ctx.shadowColor='rgba(212,175,55,0.6)';ctx.shadowBlur=40;
-  ctx.fillText(sym,W/2,330);
+  // Estrellas
+  const stars=[...Array(160)].map(()=>({
+    x:Math.random()*W, y:Math.random()*H,
+    r:Math.random()*1.8+0.2,
+    a:Math.random()*0.8+0.2
+  }));
+  stars.forEach(s=>{
+    ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(255,255,255,${s.a})`;ctx.fill();
+  });
+  // Estrellas con destello
+  [[120,200],[960,450],[80,700],[1000,1100],[540,180],[200,1400],[900,1700]].forEach(([x,y])=>{
+    ctx.strokeStyle='rgba(255,255,255,0.4)';ctx.lineWidth=0.8;
+    ctx.beginPath();ctx.moveTo(x-8,y);ctx.lineTo(x+8,y);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(x,y-8);ctx.lineTo(x,y+8);ctx.stroke();
+  });
+
+  // ── MARCO DECORATIVO ──
+  ctx.strokeStyle='rgba(212,175,55,0.25)';ctx.lineWidth=2;
+  ctx.strokeRect(24,24,W-48,H-48);
+  ctx.strokeStyle='rgba(212,175,55,0.1)';ctx.lineWidth=1;
+  ctx.strokeRect(32,32,W-64,H-64);
+
+  // Esquinas decorativas
+  const corner=60;
+  [
+    [44,44],[W-44,44],[44,H-44],[W-44,H-44]
+  ].forEach(([cx,cy],i)=>{
+    ctx.strokeStyle='rgba(212,175,55,0.5)';ctx.lineWidth=2;
+    const dx=i%2===0?1:-1, dy=i<2?1:-1;
+    ctx.beginPath();ctx.moveTo(cx,cy+dy*corner);ctx.lineTo(cx,cy);ctx.lineTo(cx+dx*corner,cy);ctx.stroke();
+  });
+
+  // ── LOGO LUNARIS (zona superior) ──
+  ctx.fillStyle='rgba(212,175,55,0.3)';ctx.fillRect(120,110,W-240,1);
+  ctx.font='bold 36px Cinzel,serif';ctx.textAlign='center';
+  ctx.fillStyle='#D4AF37';ctx.letterSpacing='6px';
+  ctx.shadowColor='rgba(212,175,55,0.5)';ctx.shadowBlur=15;
+  ctx.fillText('✦  L U N A R I S  ✦',W/2,96);
+  ctx.shadowBlur=0;
+  ctx.fillStyle='rgba(212,175,55,0.3)';ctx.fillRect(120,118,W-240,1);
+
+  // Subtítulo
+  ctx.fillStyle='rgba(192,192,208,0.55)';ctx.font='22px Cinzel,serif';
+  ctx.fillText('Tu guía cósmica · '+periodo.toUpperCase(),W/2,156);
+
+  // ── SÍMBOLO DEL SIGNO (zona central alta) ──
+  // Halo dorado
+  const halo=ctx.createRadialGradient(W/2,380,0,W/2,380,220);
+  halo.addColorStop(0,'rgba(212,175,55,0.15)');
+  halo.addColorStop(0.5,'rgba(212,175,55,0.05)');
+  halo.addColorStop(1,'transparent');
+  ctx.fillStyle=halo;ctx.fillRect(0,0,W,H);
+
+  ctx.font='240px serif';ctx.textAlign='center';
+  ctx.shadowColor='rgba(212,175,55,0.8)';ctx.shadowBlur=60;
+  ctx.fillStyle='rgba(212,175,55,0.95)';
+  ctx.fillText(sym,W/2,510);
   ctx.shadowBlur=0;
 
   // Nombre del signo
-  ctx.fillStyle='#F5E27A';ctx.font='bold 52px Cinzel,serif';ctx.textAlign='center';
-  ctx.letterSpacing='8px';
-  ctx.fillText(signo.toUpperCase(),W/2,400);
+  ctx.font='bold 88px Cinzel,serif';ctx.textAlign='center';
+  ctx.fillStyle='#F5F0FF';
+  ctx.shadowColor='rgba(212,175,55,0.4)';ctx.shadowBlur=20;
+  ctx.fillText(signo.toUpperCase(),W/2,620);
+  ctx.shadowBlur=0;
 
-  // Línea divisora
-  ctx.fillStyle='rgba(212,175,55,0.4)';ctx.fillRect(120,420,W-240,1);
+  // ── FRASE MANTRA ──
+  ctx.fillStyle='rgba(212,175,55,0.2)';ctx.fillRect(80,656,W-160,1);
 
-  // Frase del día
-  ctx.fillStyle='#F5F0FF';ctx.font='italic 32px Cormorant Garamond,Georgia,serif';
+  // Decoración de la frase
+  ctx.fillStyle='rgba(212,175,55,0.6)';ctx.font='28px serif';ctx.textAlign='center';
+  ctx.fillText('— ✦ —',W/2,706);
+
+  ctx.fillStyle='#F5E27A';ctx.font='italic 40px Cormorant Garamond,Georgia,serif';
   ctx.textAlign='center';
-  // Wrap de la frase
-  const words=frase.split(' ');let line='';let y=480;
-  words.forEach(w=>{
-    const t=line+w+' ';
-    if(ctx.measureText(t).width>780&&line){
-      ctx.fillText(line.trim(),W/2,y);y+=44;line=w+' ';
-    }else line=t;
+  // Wrap frase
+  const frWords=frase.split(' ');let frLine='';let frY=758;
+  frWords.forEach(w=>{
+    const t=frLine+w+' ';
+    if(ctx.measureText(t).width>880&&frLine){
+      ctx.shadowColor='rgba(212,175,55,0.3)';ctx.shadowBlur=8;
+      ctx.fillText(frLine.trim(),W/2,frY);ctx.shadowBlur=0;
+      frY+=52;frLine=w+' ';
+    }else frLine=t;
   });
-  if(line)ctx.fillText(line.trim(),W/2,y);y+=60;
+  if(frLine){ctx.shadowColor='rgba(212,175,55,0.3)';ctx.shadowBlur=8;ctx.fillText(frLine.trim(),W/2,frY);ctx.shadowBlur=0;}
+  frY+=40;
 
-  // Tarjetas snack
+  ctx.fillStyle='rgba(212,175,55,0.6)';ctx.font='28px serif';
+  ctx.fillText('— ✦ —',W/2,frY+10);
+
+  // ── TARJETAS APILADAS VERTICALMENTE ──
+  const cardStartY=frY+70;
   const cards=[
-    {icon:'❤️',label:'AMOR',txt:amor},
-    {icon:'💰',label:'DINERO',txt:dinero},
-    {icon:'🌿',label:'BIENESTAR',txt:bien}
+    {icon:'❤',label:'AMOR',txt:amor,color:'rgba(220,80,120,0.8)',glow:'rgba(220,80,120,0.3)'},
+    {icon:'◈',label:'DINERO',txt:dinero,color:'rgba(212,175,55,0.9)',glow:'rgba(212,175,55,0.3)'},
+    {icon:'✿',label:'BIENESTAR',txt:bien,color:'rgba(100,200,130,0.85)',glow:'rgba(100,200,130,0.3)'}
   ];
-  const cardW=280,cardH=140,cardY=y+10;
-  const startX=(W-cardW*3-20)/2;
+
+  const cW=880,cPad=36;
+  let cy=cardStartY;
+
   cards.forEach((card,i)=>{
-    const cx=startX+i*(cardW+10);
-    // Fondo tarjeta
-    ctx.fillStyle='rgba(45,27,94,0.5)';
-    roundRect(ctx,cx,cardY,cardW,cardH,12);ctx.fill();
-    ctx.strokeStyle='rgba(212,175,55,0.2)';ctx.lineWidth=1;
-    roundRect(ctx,cx,cardY,cardW,cardH,12);ctx.stroke();
-    // Icono
-    ctx.font='26px serif';ctx.textAlign='center';
-    ctx.fillText(card.icon,cx+cardW/2,cardY+34);
-    // Label
-    ctx.fillStyle='#D4AF37';ctx.font='bold 13px Cinzel,sans-serif';
-    ctx.fillText(card.label,cx+cardW/2,cardY+58);
-    // Texto
-    ctx.fillStyle='rgba(245,240,255,0.85)';ctx.font='13px serif';
-    const wds=card.txt.split(' ');let ln='';let ty=cardY+78;
+    // Medir altura necesaria
+    ctx.font='30px Cormorant Garamond,Georgia,serif';
+    const maxW=cW-cPad*2-80;
+    const wds=card.txt.split(' ');let ln='';const lines=[];
     wds.forEach(w=>{
       const t=ln+w+' ';
-      if(ctx.measureText(t).width>cardW-20&&ln){
-        ctx.fillText(ln.trim(),cx+cardW/2,ty);ty+=18;ln=w+' ';
-      }else ln=t;
+      if(ctx.measureText(t).width>maxW&&ln){lines.push(ln.trim());ln=w+' ';}
+      else ln=t;
     });
-    if(ln)ctx.fillText(ln.trim(),cx+cardW/2,ty);
+    if(ln)lines.push(ln.trim());
+    const cH=cPad*2+52+lines.length*38+16;
+
+    const cx2=(W-cW)/2;
+
+    // Sombra de la tarjeta
+    ctx.shadowColor='rgba(0,0,0,0.4)';ctx.shadowBlur=20;ctx.shadowOffsetY=6;
+    // Fondo tarjeta
+    const cardBg=ctx.createLinearGradient(cx2,cy,cx2+cW,cy+cH);
+    cardBg.addColorStop(0,'rgba(20,10,45,0.85)');
+    cardBg.addColorStop(1,'rgba(35,20,70,0.75)');
+    ctx.fillStyle=cardBg;
+    roundRect(ctx,cx2,cy,cW,cH,20);ctx.fill();
+    ctx.shadowBlur=0;ctx.shadowOffsetY=0;
+
+    // Borde con color del icono
+    ctx.strokeStyle=card.color.replace('0.8','0.3').replace('0.9','0.25').replace('0.85','0.28');
+    ctx.lineWidth=1.5;
+    roundRect(ctx,cx2,cy,cW,cH,20);ctx.stroke();
+
+    // Línea de acento izquierda
+    ctx.fillStyle=card.color;
+    roundRect(ctx,cx2,cy+16,5,cH-32,3);ctx.fill();
+
+    // Icono grande
+    ctx.font='52px serif';ctx.textAlign='left';
+    ctx.shadowColor=card.glow;ctx.shadowBlur=18;
+    ctx.fillStyle=card.color;
+    ctx.fillText(card.icon,cx2+cPad,cy+cPad+42);
+    ctx.shadowBlur=0;
+
+    // Label
+    ctx.font='bold 22px Cinzel,sans-serif';
+    ctx.fillStyle=card.color;ctx.letterSpacing='4px';
+    ctx.fillText(card.label,cx2+cPad+72,cy+cPad+26);
+
+    // Texto
+    ctx.font='30px Cormorant Garamond,Georgia,serif';
+    ctx.fillStyle='rgba(245,240,255,0.9)';ctx.letterSpacing='0px';
+    let ty2=cy+cPad+60;
+    lines.forEach(l=>{
+      ctx.fillText(l,cx2+cPad+72,ty2);ty2+=38;
+    });
+
+    cy+=cH+18;
   });
 
-  // Footer
-  ctx.fillStyle='rgba(212,175,55,0.2)';ctx.fillRect(80,H-60,W-160,1);
-  ctx.fillStyle='rgba(192,192,208,0.4)';ctx.font='18px Cinzel,sans-serif';ctx.textAlign='center';
-  ctx.fillText('lunaris.com  ·  Tu mapa cósmico personalizado',W/2,H-28);
+  // ── FOOTER ──
+  const footerY=Math.max(cy+30, H-130);
+  ctx.fillStyle='rgba(212,175,55,0.2)';ctx.fillRect(80,footerY,W-160,1);
+  ctx.fillStyle='rgba(192,192,208,0.35)';ctx.font='24px Cinzel,serif';ctx.textAlign='center';
+  ctx.fillText('lunaris.com',W/2,footerY+44);
+  ctx.fillStyle='rgba(192,192,208,0.2)';ctx.font='20px serif';
+  ctx.fillText('Tu mapa cósmico personalizado y gratuito',W/2,footerY+74);
 
   // Descargar
   const a=document.createElement('a');
-  a.download=`horoscopo-${signo.toLowerCase()}-lunaris.png`;
+  a.download=`lunaris-${signo.toLowerCase()}-${periodo.toLowerCase()}.png`;
   a.href=cv.toDataURL('image/png',0.95);
   a.click();
 }
