@@ -3560,6 +3560,7 @@ function enviarContacto(){
   const email=document.getElementById('contactEmail')?.value.trim();
   const mensaje=document.getElementById('contactMensaje')?.value.trim();
   const msg=document.getElementById('contactMsg');
+  const btn=document.querySelector('[onclick="enviarContacto()"]');
 
   if(!asunto||!nombre||!email||!mensaje){
     msg.style.display='block';
@@ -3570,15 +3571,48 @@ function enviarContacto(){
     return;
   }
 
-  // Abrir cliente de correo con los datos prellenados
-  const cuerpo=`Nombre: ${nombre}%0ACorreo: ${email}%0A%0A${encodeURIComponent(mensaje)}`;
-  window.location.href=`mailto:lcruzmanzanares@gmail.com?subject=${encodeURIComponent(asunto)}&body=${cuerpo}`;
+  // Enviar via Formspree
+  btn.textContent='✦ Enviando...';
+  btn.disabled=true;
 
-  msg.style.display='block';
-  msg.style.background='rgba(100,200,130,.1)';
-  msg.style.border='1px solid rgba(100,200,130,.3)';
-  msg.style.color='#90EE90';
-  msg.textContent='✦ Abriendo tu cliente de correo... Si no se abre, escríbenos directamente a lcruzmanzanares@gmail.com';
+  fetch('https://formspree.io/f/mbdqbzle',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({
+      asunto:asunto,
+      nombre:nombre,
+      email:email,
+      mensaje:mensaje,
+      _subject:'[Lunaris] '+asunto
+    })
+  })
+  .then(r=>r.json())
+  .then(data=>{
+    if(data.ok){
+      msg.style.display='block';
+      msg.style.background='rgba(100,200,130,.1)';
+      msg.style.border='1px solid rgba(100,200,130,.3)';
+      msg.style.color='#90EE90';
+      msg.textContent='✦ ¡Mensaje enviado! Te responderemos pronto a tu correo.';
+      btn.textContent='✦ Enviado ✓';
+      // Limpiar campos
+      document.getElementById('contactAsunto').value='';
+      document.getElementById('contactNombre').value='';
+      document.getElementById('contactEmail').value='';
+      document.getElementById('contactMensaje').value='';
+    } else {
+      throw new Error('Error al enviar');
+    }
+  })
+  .catch(()=>{
+    msg.style.display='block';
+    msg.style.background='rgba(220,80,80,.15)';
+    msg.style.border='1px solid rgba(220,80,80,.3)';
+    msg.style.color='#FF9090';
+    msg.textContent='Error al enviar. Escríbenos a lcruzmanzanares@gmail.com';
+    btn.textContent='✦ Enviar solicitud';
+    btn.disabled=false;
+  });
 }
 
 function openLegal(tipo){
