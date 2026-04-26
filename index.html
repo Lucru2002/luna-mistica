@@ -1524,6 +1524,31 @@ p,.trct,.expand-desc{max-width:70ch;line-height:1.85}
   font-size:1.3rem;transition:all .3s;display:flex;align-items:center;justify-content:center"
   title="Personalizar apariencia">⚙</button>
 
+<!-- MODAL LEGAL -->
+<div id="molLegal" style="display:none;position:fixed;inset:0;z-index:300;
+  background:rgba(0,0,0,.75);backdrop-filter:blur(6px);
+  display:none;align-items:center;justify-content:center;padding:20px">
+  <div style="background:linear-gradient(135deg,rgba(13,10,26,.98),rgba(45,27,94,.95));
+    border:1px solid rgba(212,175,55,.3);border-radius:18px;
+    max-width:640px;width:100%;max-height:80vh;overflow:hidden;
+    display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.6)">
+    <!-- Header -->
+    <div style="display:flex;justify-content:space-between;align-items:center;
+      padding:20px 24px;border-bottom:1px solid rgba(212,175,55,.15)">
+      <div id="legalTitulo" style="font-family:'Cinzel',serif;font-size:.85rem;
+        color:var(--oro);letter-spacing:.1em"></div>
+      <button onclick="closeLegal()" style="background:none;border:none;
+        color:var(--t3);font-size:1.3rem;cursor:pointer;line-height:1;
+        transition:.2s" onmouseover="this.style.color='var(--orol)'"
+        onmouseout="this.style.color='var(--t3)'">✕</button>
+    </div>
+    <!-- Contenido scrolleable -->
+    <div id="legalContenido" style="padding:24px;overflow-y:auto;
+      font-family:'Cormorant Garamond',serif;font-size:.95rem;
+      color:var(--t2);line-height:1.85"></div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <!-- MODAL YAPE -->
 <div class="mol" id="molYape">
@@ -1560,15 +1585,15 @@ p,.trct,.expand-desc{max-width:70ch;line-height:1.85}
     <a href="#" style="font-size:.75rem;color:var(--t3);text-decoration:none;padding:6px 14px;
       border:1px solid rgba(212,175,55,.15);border-radius:20px;transition:.2s"
       onmouseover="this.style.borderColor='rgba(212,175,55,.4)';this.style.color='var(--orol)'"
-      onmouseout="this.style.borderColor='rgba(212,175,55,.15)';this.style.color='var(--t3)'">📋 Términos y Condiciones</a>
+      onmouseout="this.style.borderColor='rgba(212,175,55,.15)';this.style.color='var(--t3)'" onclick="openLegal('terminos');return false">📋 Términos y Condiciones</a>
     <a href="#" style="font-size:.75rem;color:var(--t3);text-decoration:none;padding:6px 14px;
       border:1px solid rgba(212,175,55,.15);border-radius:20px;transition:.2s"
       onmouseover="this.style.borderColor='rgba(212,175,55,.4)';this.style.color='var(--orol)'"
-      onmouseout="this.style.borderColor='rgba(212,175,55,.15)';this.style.color='var(--t3)'">🔒 Política de Privacidad</a>
+      onmouseout="this.style.borderColor='rgba(212,175,55,.15)';this.style.color='var(--t3)'" onclick="openLegal('privacidad');return false">🔒 Política de Privacidad</a>
     <a href="#" style="font-size:.75rem;color:var(--t3);text-decoration:none;padding:6px 14px;
       border:1px solid rgba(212,175,55,.15);border-radius:20px;transition:.2s"
       onmouseover="this.style.borderColor='rgba(212,175,55,.4)';this.style.color='var(--orol)'"
-      onmouseout="this.style.borderColor='rgba(212,175,55,.15)';this.style.color='var(--t3)'">🍪 Política de Cookies</a>
+      onmouseout="this.style.borderColor='rgba(212,175,55,.15)';this.style.color='var(--t3)'" onclick="openLegal('cookies');return false">🍪 Política de Cookies</a>
     <a href="#" style="font-size:.75rem;color:var(--t3);text-decoration:none;padding:6px 14px;
       border:1px solid rgba(212,175,55,.15);border-radius:20px;transition:.2s"
       onmouseover="this.style.borderColor='rgba(212,175,55,.4)';this.style.color='var(--orol)'"
@@ -3422,6 +3447,83 @@ function cargarConfig(){
 }
 // Cargar config guardada al inicio
 window.addEventListener('load',()=>{ cargarConfig(); });
+
+/* ══ MODALES LEGALES ══ */
+const LEGAL_CONTENT = {
+  terminos: {
+    titulo: '📋 Términos y Condiciones',
+    html: `<h3 style="color:var(--orol);font-size:1.1rem;margin-bottom:12px">1. Aceptación</h3>
+<p>Al acceder y utilizar Lunaris, aceptas los presentes Términos y Condiciones. Si no estás de acuerdo, por favor abstente de usar el sitio.</p>
+<h3 style="color:var(--orol);font-size:1.1rem;margin:16px 0 8px">2. Naturaleza del servicio</h3>
+<p>Lunaris es una plataforma de entretenimiento espiritual y astrología. Los contenidos, cartas astrales, horóscopos y lecturas de tarot se ofrecen <strong style="color:var(--orol)">con fines informativos y de entretenimiento únicamente</strong>, y no constituyen asesoramiento profesional de ningún tipo (médico, psicológico, financiero o legal).</p>
+<h3 style="color:var(--orol);font-size:1.1rem;margin:16px 0 8px">3. Plan Premium</h3>
+<p>El plan Premium tiene un costo de S/ 5 por mes. El pago se realiza mediante Yape o Plin al número 964828283. La activación es manual y se confirma en un plazo máximo de 24 horas. El usuario puede cancelar en cualquier momento contactando a lcruzmanzanares@gmail.com.</p>
+<h3 style="color:var(--orol);font-size:1.1rem;margin:16px 0 8px">4. Uso del servicio</h3>
+<p>El usuario se compromete a usar Lunaris de forma responsable y no intentar dañar, sobrecargar o vulnerar el sistema. Está prohibido el uso automatizado sin autorización previa.</p>
+<h3 style="color:var(--orol);font-size:1.1rem;margin:16px 0 8px">5. Limitación de responsabilidad</h3>
+<p>Lunaris no se hace responsable por decisiones tomadas en base a los contenidos del sitio. El usuario asume la plena responsabilidad del uso que haga de la información proporcionada.</p>
+<h3 style="color:var(--orol);font-size:1.1rem;margin:16px 0 8px">6. Modificaciones</h3>
+<p>Lunaris se reserva el derecho de modificar estos términos en cualquier momento. Los cambios serán publicados en esta misma página.</p>
+<p style="margin-top:20px;font-size:.8rem;color:var(--t3)">Última actualización: Abril 2025 · Perú 🇵🇪</p>`
+  },
+  privacidad: {
+    titulo: '🔒 Política de Privacidad',
+    html: `<h3 style="color:var(--orol);font-size:1.1rem;margin-bottom:12px">1. Datos que recopilamos</h3>
+<p>Lunaris puede recopilar los siguientes datos cuando usas el servicio: nombre (opcional), fecha, hora y lugar de nacimiento para el cálculo de la carta astral, dirección de correo electrónico (solo si la proporcionas voluntariamente), y número de WhatsApp (solo para usuarios Premium).</p>
+<h3 style="color:var(--orol);font-size:1.1rem;margin:16px 0 8px">2. Cómo usamos tus datos</h3>
+<p>Los datos de nacimiento se usan exclusivamente para calcular tu carta astral y personalizar tu horóscopo. El email se usa únicamente para enviar el horóscopo semanal si así lo solicitaste. El número de WhatsApp se usa exclusivamente para enviar el horóscopo diario Premium. <strong style="color:var(--orol)">No vendemos ni compartimos tus datos con terceros.</strong></p>
+<h3 style="color:var(--orol);font-size:1.1rem;margin:16px 0 8px">3. Almacenamiento</h3>
+<p>Los cálculos de la carta astral se realizan localmente en tu navegador. No almacenamos tu carta astral en servidores propios a menos que te registres. Las preferencias de personalización se guardan en tu navegador (localStorage).</p>
+<h3 style="color:var(--orol);font-size:1.1rem;margin:16px 0 8px">4. Tus derechos</h3>
+<p>Tienes derecho a solicitar la eliminación de tus datos en cualquier momento. Para ello, escríbenos a lcruzmanzanares@gmail.com y procesaremos tu solicitud en un plazo de 72 horas.</p>
+<h3 style="color:var(--orol);font-size:1.1rem;margin:16px 0 8px">5. Cookies</h3>
+<p>Usamos cookies técnicas necesarias para el funcionamiento del sitio y cookies de publicidad de Google AdSense. Consulta nuestra Política de Cookies para más información.</p>
+<p style="margin-top:20px;font-size:.8rem;color:var(--t3)">Última actualización: Abril 2025 · Perú 🇵🇪</p>`
+  },
+  cookies: {
+    titulo: '🍪 Política de Cookies',
+    html: `<h3 style="color:var(--orol);font-size:1.1rem;margin-bottom:12px">¿Qué son las cookies?</h3>
+<p>Las cookies son pequeños archivos de texto que se almacenan en tu dispositivo cuando visitas un sitio web. Nos ayudan a recordar tus preferencias y mejorar tu experiencia.</p>
+<h3 style="color:var(--orol);font-size:1.1rem;margin:16px 0 8px">Cookies que usamos</h3>
+<div style="display:grid;gap:12px;margin:12px 0">
+  <div style="background:rgba(212,175,55,.06);border-radius:10px;padding:12px;border:1px solid rgba(212,175,55,.12)">
+    <div style="color:var(--orol);font-size:.85rem;font-weight:600;margin-bottom:4px">🔧 Cookies técnicas (necesarias)</div>
+    <div style="font-size:.85rem">Guardan tus preferencias de apariencia (tamaño de letra, colores, tipografía). No recopilan datos personales. No se pueden desactivar.</div>
+  </div>
+  <div style="background:rgba(212,175,55,.06);border-radius:10px;padding:12px;border:1px solid rgba(212,175,55,.12)">
+    <div style="color:var(--orol);font-size:.85rem;font-weight:600;margin-bottom:4px">📊 Cookies de publicidad (Google AdSense)</div>
+    <div style="font-size:.85rem">Google AdSense puede usar cookies para mostrar anuncios relevantes. Puedes gestionar tus preferencias de publicidad en <a href="https://adssettings.google.com" target="_blank" style="color:var(--orol)">adssettings.google.com</a>.</div>
+  </div>
+</div>
+<h3 style="color:var(--orol);font-size:1.1rem;margin:16px 0 8px">Cómo desactivar las cookies</h3>
+<p>Puedes desactivar las cookies desde la configuración de tu navegador. Ten en cuenta que algunas funciones del sitio podrían dejar de funcionar correctamente si desactivas las cookies técnicas.</p>
+<h3 style="color:var(--orol);font-size:1.1rem;margin:16px 0 8px">Contacto</h3>
+<p>Si tienes dudas sobre nuestra política de cookies escríbenos a <a href="mailto:lcruzmanzanares@gmail.com" style="color:var(--orol)">lcruzmanzanares@gmail.com</a></p>
+<p style="margin-top:20px;font-size:.8rem;color:var(--t3)">Última actualización: Abril 2025 · Perú 🇵🇪</p>`
+  }
+};
+
+function openLegal(tipo){
+  const data=LEGAL_CONTENT[tipo];
+  if(!data)return;
+  document.getElementById('legalTitulo').textContent=data.titulo;
+  document.getElementById('legalContenido').innerHTML=data.html;
+  const mol=document.getElementById('molLegal');
+  mol.style.display='flex';
+  document.body.style.overflow='hidden';
+}
+
+function closeLegal(){
+  document.getElementById('molLegal').style.display='none';
+  document.body.style.overflow='';
+}
+
+// Cerrar con ESC
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLegal();});
+// Cerrar al click fuera
+document.getElementById('molLegal')?.addEventListener('click',function(e){
+  if(e.target===this)closeLegal();
+});
 
 function openModalYape(){
   document.getElementById('yape-paso1').style.display='block';
