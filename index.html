@@ -3579,11 +3579,12 @@ function enviarContacto(){
     method:'POST',
     headers:{'Content-Type':'application/json','Accept':'application/json'},
     body:JSON.stringify({
-      asunto:asunto,
-      nombre:nombre,
-      email:email,
-      mensaje:mensaje,
-      _subject:'[Lunaris] '+asunto
+      'Asunto':asunto,
+      'Nombre':nombre,
+      'email':email,
+      'Mensaje':mensaje,
+      '_subject':'[Lunaris] '+asunto,
+      '_replyto':email
     })
   })
   .then(r=>r.json())
