@@ -2243,6 +2243,25 @@ function procesarCartaLocal(nom,fch,hh,mm){
 function completarCarta(si,li,ai,nom,fch){
   // Guardar signo para auto-detección en horóscopo
   window._signoPropio=si;
+
+  // Guardar suscriptor si ingresó email
+  const emailVal=document.getElementById('cemail')?.value?.trim();
+  if(emailVal && emailVal.includes('@')){
+    const signoNom=SG[si]?.n||'';
+    const signoSym=SG[si]?.s||'';
+    fetch('https://formspree.io/f/xwvazrby',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({
+        'Nombre':nom||'',
+        'email':emailVal,
+        'Signo Solar':signoSym+' '+signoNom,
+        'Fecha Nacimiento':fch||'',
+        '_subject':'[Lunaris] Nueva suscripción — '+signoNom
+      })
+    }).catch(()=>{});
+  }
+
   const sg=SG[si],luna=SG[li],asc=SG[ai];
 
   // Usar posiciones reales si Astronomy Engine las calculó
